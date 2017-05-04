@@ -1,0 +1,40 @@
+#compdef pkg
+
+local -a _1st_arguments
+
+_main_arguments=(
+    "-read:[-r]Read configuration files in default folder"
+    "-write:[-w]Write the example data to configuration files"
+    "-env:[-e]Change xcode project env with given config"
+    "-build:[-b]Build xcode workspace/porject"
+    "-clean:[-c]Clean xcode workspace/porject"
+    "-make:[-m]Build xcode workspace/porject And Make ipa file"
+    "-batch:[-bat]Batch build xcode workspace/porject And Make ipa file to output folder"
+    "-output:[-o]Config output folder path"
+)
+
+_env_arguments() {
+  config_list=(`cd ./config && ls *.cfg`)
+}
+
+_build_arguments=(
+	"release:Set build mode as release,defaut mode"
+    "debug:Set build mode as debug"
+)
+
+local label_subcommand="pkg subcommand"
+local expl
+
+if (( CURRENT == 2 )); then
+    _describe -t commands "$label_subcommand" _main_arguments
+    return 0
+fi
+
+case "$words[2]" in
+  -build|-make|-b|-B|-m|-M)
+    _describe -t commands "$label_subcommand" _build_arguments ;;
+  -env|-e|-E)
+  	_env_arguments
+	_wanted config_list expl 'config files' compadd -a config_list
+	;;
+esac

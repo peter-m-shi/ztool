@@ -1,0 +1,12 @@
+#!/bin/sh
+#
+# Automatically adds user name to the commit msg
+#
+
+USER=$(git config --get user.chinesename)
+if ! [ -n "$USER" ]
+then
+    USER=$(git config --get user.name)
+fi
+
+echo '['"$USER"']' $(awk -F'[#]' '{print $1}' "$1") > "$1"

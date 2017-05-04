@@ -1,0 +1,77 @@
+#compdef ipa
+
+_app_file_arguments() {
+  apps=(`ls | grep .app`)
+}
+_ipa_file_arguments() {
+  ipas=(`ls | grep .ipa`)
+}
+
+local -a _1st_arguments
+_1st_arguments=(
+    "-sign: sign a app file,ipa file as a output"
+    "-resign: resign a app file,ipa file as a output"
+    "-info: show project info and certificate info of a ipa file"
+)
+
+_info_arguments=(
+    "profile"
+    "cername"
+    "certype"
+    "device"
+    "channel"
+    "appid"
+    "version"
+    "buildversion"
+)
+
+_certificate_arguments=(
+    "iPhone Developer\: W-iOS_Slave (F9R4V4C9QQ)"
+    "iPhone Developer\: jsbn_developer_ee@jsbn.com (55HT78XC4X)"
+    "iPhone Distribution\: Golden Years Wedding Service Co., Ltd."
+    "iPhone Distribution\: Chengdu Pinguo Technology Co., Ltd."
+    "iPhone Developer\: Qiang Zhu (N3YQQZE5KP)"
+    "iPhone Developer\: Xu Hao (ACJKFKYC2S)"
+    "iPhone Distribution\: Xu Hao (8XTVQ9ED5H)"
+    "iPhone Developer\: xu ying (9G4DCA5HQ3)"
+)
+
+local expl
+local -a ipas apps mobileprovisions certificates
+
+if (( CURRENT == 2 )); then
+  _describe -t commands "ipa command" _1st_arguments
+  return
+fi
+
+if (( CURRENT == 3 )); then
+    case "$words[2]" in
+        -sign|-s)
+          _app_file_arguments
+          _wanted apps expl 'app file' compadd -a apps ;;
+        -resign|-re)
+          _ipa_file_arguments
+          _wanted ipas expl 'ipa file' compadd -a ipas ;;
+        -info|-i)
+          _ipa_file_arguments
+          _wanted ipas expl 'ipa file' compadd -a ipas ;;
+    esac
+fi
+
+if (( CURRENT == 4 )); then
+    case "$words[2]" in
+        -info|-i)
+          _describe -t commands "info arguments" _info_arguments ;;
+        -resign|-re)
+          _describe -t commands "certificate arguments" _certificate_arguments
+    esac
+
+    #_values -s 'Some completions' `certtool y | grep -e iPhone\ Distribution -e iPhone\ Developer | while read -r line; do echo "${line#*: }\r\n"; done`
+fi
+
+if (( CURRENT == 5 )); then
+    case "$words[2]" in
+        -resign|-re)
+          _values 'mp3 files' $HOME/Library/MobileDevice/Provisioning\ Profiles/*.mobileprovision
+    esac
+fi

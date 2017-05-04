@@ -1,0 +1,5 @@
+#image tools
+
+function iconvert(){
+    ruby $HOME/ztool/image/icon-modify.rb $1 $2
+}

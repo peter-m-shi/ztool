@@ -1,0 +1,391 @@
+# complete -o filenames -F _root_command notify
+
+
+#创建xx个人分支,如果无参数默认基于当前目录创建
+#gitz new xx
+#切换到xx分支，如果没有本地分支，会拉取并切换
+#gitz switch xx
+#同步xx分支代码到本地分支，如果没有参数默认
+#gitz sync xxx
+
+function gitz () {
+    echo $1 $2
+}
+
+
+# 创建基于当前分支的个人分支
+alias gnb='_gnb'
+function _gnb () {
+   default_branch=''
+    if [ -z "$1" ]; then
+      head=`cat .git/HEAD`
+      current_head=${head##*/}
+      if [[ $current_head == *_* ]]; then
+        branch=${current_head%%+*}
+        branch=${branch##*_}
+        default_branch=$branch
+      else
+        default_branch=$current_head
+      fi
+    else
+    if [[ $1 == *_* ]]; then
+        branch=$1
+        branch=${branch%%+*}
+        branch=${branch##*_}
+        default_branch=$branch
+      else
+        default_branch=$1
+      fi
+    fi
+
+
+   now_pwd=`pwd`
+   while [[ ! -d ".git" ]]; do
+    cd ..
+    if [[ `pwd` = '/' ]]; then
+        echo 'Here is Root, Damn! Let us go back, biu~~'
+        cd ${now_pwd}
+        return
+    fi
+    done
+
+    git fetch origin
+
+    if [ -f ".git/refs/heads/$default_branch" ]; then
+        git checkout $default_branch
+        git branch --set-upstream-to=origin/$default_branch
+        git merge origin/${user_branch}
+    else
+        git checkout -t origin/$default_branch
+        git branch --set-upstream-to=origin/$default_branch
+    fi
+
+    head=`cat .git/HEAD`
+    user=`git config --get user.name`
+    user_branch="${user}-$default_branch"
+
+    if [ -f ".git/refs/heads/${user_branch}" ]; then
+        git checkout ${user_branch}
+        git branch --set-upstream-to=origin/${user_branch}
+    else
+        if [ -f ".git/refs/remotes/origin/${user_branch}" ]; then
+            git checkout -t origin/${user_branch}
+            git branch --set-upstream-to=origin/${user_branch}
+        else
+            git checkout $default_branch
+            git checkout -b ${user_branch}
+            git branch --set-upstream-to=origin/${user_branch}
+            git push origin ${user_branch}
+        fi
+    fi
+    gl
+}
+
+# 切换到基于当前分支的个人分支
+alias gcd='_gcd'
+function _gcd () {
+    now_pwd=`pwd`
+    while [[ ! -d ".git" ]]
+    do
+        cd ..
+        if [[ `pwd` = '/' ]]
+        then
+            echo 'Here is Root, Damn! Let us go back, biu~~'
+            cd ${now_pwd}
+            return
+        fi
+    done
+    head=`cat .git/HEAD`
+    user=`git config --get user.name`
+    if [[ $head = *_* ]]
+    then
+        echo "you have already switched to your own branch"
+    else
+        branch=${head##*/}
+        if [[ -z "$1" ]]
+        then
+            user_branch="${user}-${branch}"
+        else
+            user_branch="${user}-${branch}+$1"
+        fi
+        git checkout $user_branch
+    fi
+}
+
+# 切换到基于当前分支(个人)的主分支
+alias gdc='_gdc'
+function _gdc() {
+    now_pwd=`pwd`
+    while [[ ! -d ".git" ]];do
+        cd ..
+        if [[ `pwd` == '/' ]]; then
+            echo 'Here is Root, Damn! Let us go back, biu~~'
+            cd ${now_pwd}
+            return
+        fi
+    done;
+    head=`cat .git/HEAD`
+
+    current_head=${head##*/}
+
+    user=${current_head%%-*}
+
+    echo $current_head
+    echo $user
+    if [[ $current_head == *-* ]]; then
+        if [[ $current_head == *+* ]]; then
+            echo 1
+            branch=${current_head%%+*}
+        elif [[ $current_head == *-* ]]; then
+            echo 2
+            branch=${current_head#*-}
+        else
+            echo 3
+            branch=${current_head##*_}
+        fi
+        git checkout $branch
+    else
+        default_branch=''
+        if [ -z "$1" ]; then
+          default_branch=`git remote show origin | grep "HEAD branch" | cut -d : -f2 | cut -c 2-`
+        else
+          default_branch=$1
+        fi
+        git checkout $default_branch
+    fi
+}
+
+# 同步代码到当前分支
+alias gl='_gl'
+function _gl() {
+    now_pwd=`pwd`
+    while [[ ! -d ".git" ]];do
+        cd ..
+        if [[ `pwd` == '/' ]]; then
+            echo 'Here is Root, Damn! Let us go back, biu~~'
+            cd ${now_pwd}
+            return
+        fi
+    done;
+
+    head=`cat .git/HEAD`
+    current_head=${head##*/}
+    user=${current_head%%_*}
+    if [[ $current_head == *_* ]]
+        then
+        branch=${current_head%%+*}
+        branch=${branch##*_}
+        user_branch="${user}-${branch}"
+
+        git fetch origin
+        git merge $user_branch origin/$user_branch
+        git merge $user_branch origin/$branch
+
+        if [[ $current_head == *+* ]]; then
+            git merge $current_head origin/${user_branch}
+            git merge $current_head origin/$current_head
+            git merge $current_head $user_branch
+        fi
+    else
+        echo "you are not in your own branch"
+    fi
+}
+
+
+function gl2() {
+    now_pwd=`pwd`
+    while [[ ! -d ".git" ]];do
+        cd ..
+        if [[ `pwd` == '/' ]]; then
+            echo 'Here is Root, Damn! Let us go back, biu~~'
+            cd ${now_pwd}
+            return
+        fi
+    done;
+
+    head=`cat .git/HEAD`
+    current_head=${head##*/}
+    default_branch=''
+    if [ -z "$1" ]; then
+      default_branch=`git remote show origin | grep "HEAD branch" | cut -d : -f2 | cut -c 2-`
+    else
+      default_branch=$1
+    fi
+
+    git fetch origin
+    git merge origin/$default_branch
+}
+
+alias gh='_gh'
+function _gh() {
+    now_pwd=`pwd`
+    while [[ ! -d ".git" ]];do
+        cd ..
+        if [[ `pwd` == '/' ]]; then
+            echo 'Here is Root, Damn! Let us go back, biu~~'
+            cd ${now_pwd}
+            return
+        fi
+    done;
+
+    head=`cat .git/HEAD`
+    current_head=${head##*/}
+    user=${current_head%%_*}
+    if [[ $current_head == *_* ]]; then
+        branch=${current_head%%+*}
+        branch=${branch##*_}
+        user_branch="${user}-${branch}"
+
+
+        git fetch origin
+
+        git merge $user_branch origin/$user_branch
+        git merge $user_branch origin/$branch
+
+
+        if [[ $current_head == *+* ]]; then
+            git push origin $user_branch
+            git fetch origin
+
+            git checkout $current_head
+            git merge origin/${user_branch}
+            git merge $current_head origin/$current_head
+            git push origin $current_head
+        else
+            git push origin $user_branch
+        fi
+    else
+      echo "you are not in your own branch"
+  fi
+}
+
+# 基于当前分支(个人)创建一个合并请求
+alias gr='_gr'
+function _gr() {
+    now_pwd=`pwd`
+    while [[ ! -d ".git" ]];do
+        cd ..
+        if [[ `pwd` == '/' ]]; then
+            echo 'Here is Root, Damn! Let us go back, biu~~'
+            cd ${now_pwd}
+            return
+        fi
+    done;
+    head=`cat .git/HEAD`
+    current_head=${head##*/}
+    origin=`git ls-remote --get-url origin`
+    user=${current_head%%_*}
+
+
+    if [[ $current_head == *_* ]]
+        then
+        branch=${current_head%%+*}
+        branch=${branch##*_}
+
+
+        if [[ $current_head == *+* ]]; then
+            user_branch="$current_head"
+        else
+            user_branch="${user}-${branch}"
+        fi
+        msg="${user_branch} pull-request"
+        desc=`git log origin/$branch..$user_branch --pretty=oneline --abbrev-commit --no-merges`
+        result=$(echo $origin | grep "github.com")
+        if [[ "$result" != "" ]]
+            then
+            hub pull-request -o -m $msg -b $branch -h $user_branch
+        else
+            stash pull-request -o --title $msg --description $desc $user_branch $branch
+        fi
+    else
+        echo "you are not in your own branch"
+    fi
+
+}
+
+
+alias gll='_gll'
+function _gll() {
+    head=`cat .git/HEAD`
+    user=`git config --get user.name`
+
+    if [[ $head == *_*-* ]]; then
+        branch=${head##*_}
+        base_branch=${branch%-*}
+        user_branch="${user}-${branch}"
+
+        git fetch origin
+        git checkout $user_branch
+        git merge origin/$base_branch
+        git merge $user_branch origin/$user_branch
+    else
+        echo "you branch's name should match ${user}_devxxx-yyyy format"
+    fi
+}
+
+# 创建基于当前分支的个人分支(给定参数)
+alias generate_default_branch='_generate_default_branch'
+function _generate_default_branch () {
+    now_pwd=`pwd`
+    while [[ ! -d ".git" ]];do
+        cd ..
+        if [[ `pwd` == '/' ]]; then
+            echo 'Here is Root, Damn! Let us go back, biu~~'
+            cd ${now_pwd}
+            return
+        fi
+    done;
+    head=`cat .git/HEAD`
+    current_head=${head##*/}
+    target_branch=''
+    if [ -z "$1" ]; then
+        echo "Use current branch!"
+        target_branch=${current_head}
+    else
+        target_branch=$1
+    fi
+
+
+    result=$(echo $head | grep "_")
+    if [[ $result == "" ]]; then
+        branch_list=''
+        if [ -f ".git/refs/heads/${target_branch}" ]; then
+            git checkout ${target_branch}
+        else
+            git checkout -b ${target_branch}
+        fi
+        git pull
+        git push origin ${target_branch}
+        for name in lyj tl zys span fpp hl hc ppg qx zxl zyf zct gs lx sp fhr zq xmx mz zyj zs cpg
+        do
+           branch_name=${name}-${target_branch}
+           echo $branch_name
+           git checkout $DEFAULT_DEV
+           git checkout -b $branch_name
+           git push origin ${branch_name}
+       done
+
+       git checkout ${target_branch}
+
+   else
+    echo "you can't on you own branch"
+fi
+}
+
+# 查看git仓库版本号
+alias gv='_gv'
+function _gv(){
+    local base=${1:-1}
+    echo version:$((`git rev-list --all|wc -l` + $base))
+}
+
+# 查看当前合并请求状态
+alias prs='_prs'
+function _prs(){
+    ruby $HOME/ztool/gitz/pr_state.rb
+}
+
+# 遍历当前Git仓库tag
+function traverse_tags(){
+    sh $HOME/ztool/gitz/traverse_tags.sh
+}

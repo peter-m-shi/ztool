@@ -1,0 +1,26 @@
+#mobileprovision tools
+
+function lochelp(){
+	echo '
+	1、locinit:并修改.wozniak
+	2、loc2x:转为xls文件
+	3、loc2s:xls文件转为strings文件
+	4、默认文件名为Localizable.xls，在.wozniak文件可以自定义修改
+	5、注意事项：
+		5.1、仅支持Excel 97-2004工作薄
+		5.2、表格表头(第一行)不能随便修改
+
+	Github地址：https://github.com/fousa/woz'
+}
+
+function locinit(){
+    woz setup
+}
+
+function loc2s(){
+    woz import --csv Localizable.csv
+}
+
+function loc2x(){
+    woz export -c
+}

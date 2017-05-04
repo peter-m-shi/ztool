@@ -1,0 +1,3 @@
+function ipa(){
+    ruby $HOME/ztool/ipa/ipa.rb $*
+}

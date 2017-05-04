@@ -1,0 +1,5 @@
+#bitcode tools
+	
+function checkBitcode(){
+    ruby $HOME/ztool/binaryFile/bitcode.rb $1
+}

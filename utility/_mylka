@@ -1,0 +1,16 @@
+#compdef lka
+
+local -a _1st_arguments
+
+_env_arguments() {
+  file_list=(`find $HOME/Library/Developer/Xcode/DerivedData -name "*.txt"`)
+}
+
+local label_subcommand="lka subcommand"
+local expl
+
+if (( CURRENT == 2 )); then
+    _env_arguments
+    _wanted file_list expl 'files' compadd -a file_list
+    return 0
+fi

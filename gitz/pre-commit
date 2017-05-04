@@ -1,0 +1,14 @@
+#!/bin/sh
+
+URL=$(git config --get remote.origin.url)
+
+#转换为小写
+URL=$(echo $URL | tr '[:upper:]' '[:lower:]')
+
+shouldSetup=0
+
+if [[ shouldSetup -eq 1 ]]; then
+    CLASS_FOLDER=$(find $PWD -name Classes -maxdepth 2)
+	python $HOME/ztool/git/check_code_style.py $CLASS_FOLDER && cd $CLASS_FOLDER/.. && python $HOME/ztool/git/check_big_files
+	exit $?
+fi
