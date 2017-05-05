@@ -5,7 +5,7 @@
 
 use the follow command to install all the tools.
 
-	sh setup.sh
+	git clone https://github.com/peter-m-shi/ztool.git $HOME/ztool;sh $HOME/ztool/setup.sh
 
 use the foloow command to install a special tool.
 

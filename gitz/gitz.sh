@@ -3,9 +3,9 @@
 export GITZ_DIR=$(dirname "$(echo "$0" | sed -e 's,\\,/,g')")
 
 # enable debug mode
-# if [ "$DEBUG" = "ture" ]; then
+if [ "$DEBUG" = "ture" ]; then
 	set -x
-# fi
+fi
 
 usage() {
 	echo "usage: gitz  <subcommand>"
