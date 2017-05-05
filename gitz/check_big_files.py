@@ -32,7 +32,7 @@ def git_filesize_hook(megabytes_cutoff=5, verbose=False):
     output2 = []
 
     for item in output:
-        if item.startswith("Camera360/"):
+        if item.startswith("Classes/"):
             output2.append(item)
     output = output2
     def try_getsize(f):

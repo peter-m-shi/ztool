@@ -97,12 +97,12 @@ Env configuration
 	[Use ':' to define Action && Object]
 	|							Action							|		Object			  |
 	|			Key 		  |flag|			Value 			|subObj|		Obj 	  |
-	GCC_PREPROCESSOR_DEFINITIONS++DEBUG=1 INHOUCE_LOC=0 OTHER=1:Widget<-Camera360.xcodeproj
+	GCC_PREPROCESSOR_DEFINITIONS++DEBUG=1 INHOUCE_LOC=0 OTHER=1:Widget<-Project.xcodeproj
 
 	Action flag:
 	[>>]
 	Use 'key>>value' Set key-value in Action: 
-	CFBundleIdentifier>>com.pinguo.camera360
+	CFBundleIdentifier>>com.company.product
 
 	[++]
 	Use 'key++value' add key-value in Action:
@@ -110,7 +110,7 @@ Env configuration
 
 	[Object]
 	Use 'subObj<-Obj' define target of project:
-	Widget<-Camera360.xcodeproj
+	Widget<-Project.xcodeproj
 
 	[Object Support Type]
 	.plist
@@ -131,7 +131,7 @@ Build Time| the time when build/make | %Y%m%d%H%M%S
 
 filed|description|remark
 :---------------|:---------------	|:---------------
-Product Name|Bundle name|String type, etc. "Camera360"
+Product Name|Bundle name|String type, etc. "Product"
 Product Version|Bundle versions string, short|String type, etc. "6.2.0"
 Build Version|Bundle version | Interger type, etc. 620
 

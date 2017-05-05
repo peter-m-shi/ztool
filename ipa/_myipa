@@ -26,14 +26,7 @@ _info_arguments=(
 )
 
 _certificate_arguments=(
-    "iPhone Developer\: W-iOS_Slave (F9R4V4C9QQ)"
-    "iPhone Developer\: jsbn_developer_ee@jsbn.com (55HT78XC4X)"
-    "iPhone Distribution\: Golden Years Wedding Service Co., Ltd."
-    "iPhone Distribution\: Chengdu Pinguo Technology Co., Ltd."
-    "iPhone Developer\: Qiang Zhu (N3YQQZE5KP)"
-    "iPhone Developer\: Xu Hao (ACJKFKYC2S)"
-    "iPhone Distribution\: Xu Hao (8XTVQ9ED5H)"
-    "iPhone Developer\: xu ying (9G4DCA5HQ3)"
+    "iPhone Developer\: Certification (F9R4V4C9QQ)"
 )
 
 local expl

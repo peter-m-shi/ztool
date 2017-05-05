@@ -84,11 +84,11 @@ def write
 	config = XRbConfig.new
 	config.file = defaultDir + '/inhouse.cfg'
 	config.datas = { 
-		'CFBundleIdentifier>>com.pinguo.testers.a' => 'Camera360/Misc/Camera360-Info.plist',
-		'CFBundleIdentifier>>com.pinguo.testers.a.widget' => 'Widget/Info.plist',
-		'CFBundleIdentifier>>com.pinguo.testers.a.photoeditingextension' => 'PhotoEditingExtension/Info.plist',
-		'com.apple.security.application-groups:0>>group.com.pinguo.testers.a' => '.entitlements',
-		'CODE_SIGN_IDENTITY>>iPhone Distribution: Chengdu Pinguo Technology Co., Ltd.' => 'Camera360.xcodeproj',
+		'CFBundleIdentifier>>com.company.product.a' => 'Project-Info.plist',
+		'CFBundleIdentifier>>com.company.product.a.widget' => 'Widget/Info.plist',
+		'CFBundleIdentifier>>com.company.product.a.photoeditingextension' => 'PhotoEditingExtension/Info.plist',
+		'com.apple.security.application-groups:0>>com.company.product.testers.a' => '.entitlements',
+		'CODE_SIGN_IDENTITY>>iPhone Distribution: XXX XXX Technology Co., Ltd.' => 'Project.xcodeproj',
 		'libmegface.a>>libmegface-inhouse.a' => '.file'
 	}
 	config.save
@@ -96,14 +96,14 @@ def write
 	#dev.cfg
 	config.file = defaultDir + '/dev.cfg'
 	config.datas = { 
-		'CFBundleIdentifier>>com.pinguo.camera360' => 'Camera360/Misc/Camera360-Info.plist',
-		'CFBundleIdentifier>>com.pinguo.camera360.widget360' => 'Widget/Info.plist',
-		'CFBundleIdentifier>>com.pinguo.camera360.PhotoEditingExtension' => 'PhotoEditingExtension/Info.plist',
-		'com.apple.security.application-groups:0>>group.pinguo.camera360' =>'.entitlements',
-		'CODE_SIGN_IDENTITY>>iPhone Developer: Qiang Zhu (N3YQQZE5KP)' => 'Camera360.xcodeproj',
-		'CODE_SIGN_IDENTITY>>Camera360' => 'Camera360<-Camera360.xcodeproj',
-		'CODE_SIGN_IDENTITY>>Widget' => 'Widget<-Camera360.xcodeproj',
-		'GCC_PREPROCESSOR_DEFINITIONS++A=1 B=3 C=3' => 'Camera360.xcodeproj',
+		'CFBundleIdentifier>>com.company.product' => 'Project-Info.plist',
+		'CFBundleIdentifier>>com.company.product.widget360' => 'Widget/Info.plist',
+		'CFBundleIdentifier>>com.company.product.PhotoEditingExtension' => 'PhotoEditingExtension/Info.plist',
+		'com.apple.security.application-groups:0>>group.company.product' =>'.entitlements',
+		'CODE_SIGN_IDENTITY>>iPhone Developer: XXX (N3YQQZE5KP)' => 'Project.xcodeproj',
+		'CODE_SIGN_IDENTITY>>Project' => 'Project<-Project.xcodeproj',
+		'CODE_SIGN_IDENTITY>>Widget' => 'Widget<-Project.xcodeproj',
+		'GCC_PREPROCESSOR_DEFINITIONS++A=1 B=3 C=3' => 'Project.xcodeproj',
 		'libmegface.a>>libmegface-dev.a' => '.file'
 	}
 
