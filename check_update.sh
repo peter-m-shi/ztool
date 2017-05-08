@@ -5,7 +5,7 @@ TOOLS_FOLDER="$HOME/ztool"
 zmodload zsh/datetime
 
 function _current_epoch() {
-  echo $(( $EPOCHSECONDS / 60 / 60 / 24 ))
+  echo $(( $EPOCHSECONDS / 60 / 60 ))
 }
 
 function _update_time() {
@@ -18,7 +18,7 @@ function _upgrade_tools() {
   _update_time
 }
 
-epoch_target=$PGTOOLS_AUTO_DAYS
+epoch_target=$PGTOOLS_AUTO_HOURS
 if [[ -z "$epoch_target" ]]; then
   # Default to old behavior
   epoch_target=1

@@ -39,7 +39,7 @@ addStringToFile "source $PG_PROFILE" $ROOT_PROFILE
 #在.zshrc/.bashrc里面添加source代码
 addStringToFile "source $ROOT_PROFILE" $RC_FILE
 
-addStringToFile "env ZSH=$ZSH "'PGTOOLS_AUTO_CHECK=$PGTOOLS_AUTO_CHECK PGTOOLS_AUTO_DAYS=$PGTOOLS_AUTO_DAYS'" zsh -f $HOME/ztool/check_update.sh" $RC_FILE
+addStringToFile "env ZSH=$ZSH "'PGTOOLS_AUTO_CHECK=$PGTOOLS_AUTO_CHECK PGTOOLS_AUTO_HOURS=$PGTOOLS_AUTO_HOURS'" zsh -f $HOME/ztool/check_update.sh" $RC_FILE
 
 if [[ "$1" != "" ]]; then
 	if [[ -d "$1" ]]; then
