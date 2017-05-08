@@ -14,31 +14,14 @@ use the foloow command to install a special tool.
 ##How to use tools
 
 #git
-Introduction
-
-Use gcd to switch branch to your branch[xx_dev]
-
-	gcd
-
-Use gl to pull update from remote dev to your local branch[xx_branch]
-	
-	gl
-
-Use gh to push update to your remote branch[xx_dev]
-	
-	gh
-
-Use gr to create a request of merge from your branch[xx_dev] to dev branch
-	
-	gr
-
-Use glf to pull update from remote branch you given to your remote branch[xx_dev]
-	
-	gfl
-
-Use generate_default_branch to create everyone's branch[xx_dev]
-	
-	generate_default_branch
+	usage: gitz  <subcommand>"
+	Available subcommands are:
+	   sub      switch/create sub personal branch base on the given branch, base on current branch if no params.
+	   super   switch to personal's super branch of current branch"
+	   sync   sync from the given branch, from current branch if no params.
+	   request   create a pull request base on current personal's branch.
+	   remove   remove both of the local and remote branch of given name.
+	Try 'gitz help <subcommand> help' for details.
 
 #localizable
 
@@ -60,14 +43,6 @@ Use lochelp to show help info
 	
 #package
 
-Write the example configuration
-
-	pkg -write
-
-Read the configuration from local config file
-
-	pkg -read
-	
 Change xcode project configuration by gien config file
 
 	pkg -env dev.cfg
@@ -172,16 +147,6 @@ Install provisionprofile folder
 
 	mpinstall ./provisionprofileFolder
 
-#pods
-
-Pod install
-
-	ppi
-	
-Pod update
-
-	ppu
-	
 #utility
 
 Quik start project by xcode
