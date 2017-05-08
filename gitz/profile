@@ -4,6 +4,8 @@ function gitz () {
     sh $HOME/ztool/gitz/gitz.sh $*
 }
 
+alias pr='gitz request'
+
 # 查看git仓库版本号
 alias gv='_gv'
 function _gv(){
