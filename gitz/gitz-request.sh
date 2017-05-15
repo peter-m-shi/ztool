@@ -35,12 +35,12 @@ then
     result=$(echo $origin | grep "github.com")
     if [[ "$result" != "" ]]
     then
-        # echo "hub pull-request -o -m "$msg" -b $branch -h $targetBranch"
-        hub pull-request -o -m "$msg" -b $branch -h $targetBranch
+        echo "hub pull-request -o -m "$msg" -b $branch -h $targetBranch" > pr.sh
     else
-        # echo "stash pull-request -o --title \"$msg\" --description \"$desc\" $targetBranch $branch"
-        stash pull-request -o --title \"$msg\" --description \"$desc\" $targetBranch $branch
+        echo "stash pull-request -o --title \"$msg\" --description \"$desc\" $branch $targetBranch --trace" > pr.sh
     fi
+    sh pr.sh
+    rm -rf pr.sh
 else
     echo "Sync operation is forbidden. "
     echo "Make sure the target branch is your $user's own branch."
