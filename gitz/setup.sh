@@ -1,5 +1,8 @@
 #!/bin/sh
 
+#安装依赖
+dependency_gem atlassian-stash
+
 #添加全局hooks模板
 GIT_TEMPLATES_DIRECTORY="/Applications/GitHub.app/Contents/Resources/git/share/git-core/templates"
 cp -r $HOME/ztool/gitz/commit-msg "$GIT_TEMPLATES_DIRECTORY/hooks"
