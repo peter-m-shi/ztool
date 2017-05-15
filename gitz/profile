@@ -4,7 +4,13 @@ function gitz () {
     sh $HOME/ztool/gitz/gitz.sh $*
 }
 
-alias pr='gitz request'
+
+alias zzl='gitz pull'
+alias zzh='gitz push'
+alias zzr='gitz request'
+alias zzb='gitz sub'
+alias zzp='gitz super'
+alias zzd='gitz remove'
 
 # 查看git仓库版本号
 alias gv='_gv'
