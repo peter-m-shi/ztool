@@ -188,7 +188,7 @@ elsif cmd.downcase == '-build' or cmd.downcase == '-b'
 	increaseBuildVersion()
 elsif cmd.downcase == '-make' or cmd.downcase == '-m'
 	#打包工程
-	build(modeArg(ARGV[1]), arguments=ARGV[2])
+	#build(modeArg(ARGV[1]), arguments=ARGV[2])
 	make(modeArg(ARGV[1]),true,true)
 
 	increaseBuildVersion()

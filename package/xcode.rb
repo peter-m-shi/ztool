@@ -50,6 +50,7 @@ def tempFlderPath(debug=false)
 	buildTime = Time.new.strftime("%Y%m%d%H%M%S")
 
 	infoList = getProjectInfo("INFOPLIST_FILE")
+
 	if !infoList.empty?
 		# 产品名 CFBundleName
 		project = Dir['*.xcodeproj'].first
@@ -161,7 +162,8 @@ def build(debug=false, arguments="")
 		xcprettyCmd = " | xcpretty --no-color"
 	end
 	#编译当前工程
-	system "time xcodebuild #{argument} build GCC_PREPROCESSOR_DEFINITIONS='$(inherited) BUILD_IN_CI=1' -derivedDataPath \"#{buildFolder}\"#{xcprettyCmd}"
+	puts "time xcodebuild #{argument} archive GCC_PREPROCESSOR_DEFINITIONS='$(inherited) BUILD_IN_CI=1' -derivedDataPath \"#{buildFolder}\" -archivePath \"#{buildFolder}/Archive.xcarchive\" #{xcprettyCmd}"
+	system "time xcodebuild #{argument} archive GCC_PREPROCESSOR_DEFINITIONS='$(inherited) BUILD_IN_CI=1' -derivedDataPath \"#{buildFolder}\" -archivePath \"#{buildFolder}/Archive.xcarchive\" #{xcprettyCmd}"
 end
 
 def make(debug=false,clearTemp=true,autoOpenFinder=false)
@@ -171,24 +173,26 @@ def make(debug=false,clearTemp=true,autoOpenFinder=false)
 	if !name.empty?
 		app = Dir.glob(File.join(buildFolder,"**", "*.app")).first
 		dSYM = Dir.glob(File.join(buildFolder,"**", "*.dSYM")).first
+		xcarchive = Dir.glob(File.join(buildFolder,"**", "*.xcarchive")).first
 		name = File.basename(name)
 		output = outputFolder
 
-		system "xcrun -sdk iphoneos PackageApplication -v \"#{app}\" -o \"#{output}#{name}.ipa\" | grep -E \"error|Results\""
+		system "echo \"<?xml version=\"1.0\" encoding=\"UTF-8\"?><!DOCTYPE plist PUBLIC \"-//Apple//DTD PLIST 1.0//EN\" \"http://www.apple.com/DTDs/PropertyList-1.0.dtd\"><plist version=\"1.0\"><dict><key>compileBitcode</key><false/></dict></plist>\" > #{buildFolder}/temp.plist"
+		system "xcodebuild -exportArchive -archivePath \"#{xcarchive}\" -exportPath \"#{output}\" -exportOptionsPlist \"#{buildFolder}/temp.plist\""
 
 		if File::exist?("#{dSYM}")
 			system "cp -r \"#{dSYM}\" \"#{output}#{name}.dSYM\""
 		end
 
+		ipaFile = Dir.glob(File.join(output,"**", "*.ipa")).first
+
 		system "rm -rf #{buildFolder}"
 
-		ipaFile = "#{output}#{name}.ipa"
+		puts ipaFile
 
 		cername = `ruby $HOME/ztool/ipa/ipa.rb -info #{ipaFile} cername`.chop
 		certype = `ruby $HOME/ztool/ipa/ipa.rb -info #{ipaFile} certype`.chop
 		newIpaFile = "#{output}#{name}_#{cername}_#{certype}.ipa"
-
-		puts "mv \"#{ipaFile}\" \"#{newIpaFile}\""
 
 		`mv \"#{ipaFile}\" \"#{newIpaFile}\"`
 		if autoOpenFinder
