@@ -16,7 +16,7 @@ def batchMake(debug=false)
 		else
 			modifyPlist("APP_CHANNEL",chanel.delete("\r\n"),infoList)
 		end
-		build(debug)
+		build(debug,"",true)
 		make(debug)
 	end
 
