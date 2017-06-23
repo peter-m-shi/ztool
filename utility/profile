@@ -5,19 +5,27 @@ function upt(){
 }
 
 function x(){
-    ruby $HOME/ztool/utility/x
+    ruby $HOME/ztool/utility/xcode.rb
 }
 
 function xx(){
-    ruby $HOME/ztool/utility/x
+    ruby $HOME/ztool/utility/xcode.rb
 }
 
 function a(){
-    ruby $HOME/ztool/utility/a
+    ruby $HOME/ztool/utility/appcode.rb
 }
 
 function aa(){
-    ruby $HOME/ztool/utility/a
+    ruby $HOME/ztool/utility/appcode.rb
+}
+
+function s(){
+    ruby $HOME/ztool/utility/android_studio.rb
+}
+
+function ss(){
+    ruby $HOME/ztool/utility/android_studio.rb
 }
 
 function lka(){
