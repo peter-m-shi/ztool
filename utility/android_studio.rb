@@ -11,9 +11,9 @@ Find.find("./") do |filename|
 end
 
 if manifest.length > 0
-	dir = File.dirname(__FILE__)
+	dir = `pwd`
 	puts "open -a Android\ Studio #{dir}"
-	`open -a Android\\ Studio $PWD`
+	`open -a Android\\ Studio #{dir}`
 else
 	puts "No AndroidManifest.xml file found"
 end
