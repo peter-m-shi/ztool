@@ -1,5 +1,5 @@
 require File.dirname(__FILE__)+'/utility'
-gem 'xcodeproj', '=1.2.0'
+#gem 'xcodeproj', '=1.2.0'
 require 'xcodeproj'
 
 KMatchModeNormal  = 0
