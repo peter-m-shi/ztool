@@ -183,15 +183,15 @@ elsif cmd.downcase == '-clean' or cmd.downcase == '-c'
 
 elsif cmd.downcase == '-build' or cmd.downcase == '-b'
         #编译工程
-        build(modeArg(ARGV[1]), arguments=ARGV[2])
-
+        error = build(modeArg(ARGV[1]), arguments=ARGV[2])
         increaseBuildVersion()
+        exit error.exitstatus
 elsif cmd.downcase == '-make' or cmd.downcase == '-m'
         #打包工程
-        build(modeArg(ARGV[1]), arguments=ARGV[2],true)
+        error = build(modeArg(ARGV[1]), arguments=ARGV[2],true)
         make(modeArg(ARGV[1]),true,true)
-
         increaseBuildVersion()
+        exit error.exitstatus
 
 elsif cmd.downcase == '-batch' or cmd.downcase == '-bat'
         if !Dir.exist?(defaultDir)
