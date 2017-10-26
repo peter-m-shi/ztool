@@ -122,23 +122,7 @@ def increaseBuildVersion
 end
 
 def clean(debug=false)
-        # argument = baseArgument
-
-        # if debug
-        #       argument += " -configuration Debug"
-        # else
-        #       argument += " -configuration Release"
-        # end
-
-        # xcprettyCmd = ""
-        # if isGemInstalled('xcpretty')
-        #       xcprettyCmd = " | xcpretty -c"
-        # end
-
-        # system "time xcodebuild #{argument} clean#{xcprettyCmd}"
-
         system "rm -rf build"
-
         system "rm -rf output"
 end
 
@@ -164,11 +148,11 @@ def build(debug=false, arguments="",buildAndMake=false)
         #编译当前工程
 
         if buildAndMake
-	        puts "set -o pipefail;time xcodebuild #{argument} archive GCC_PREPROCESSOR_DEFINITIONS='$(inherited) BUILD_IN_CI=1' -derivedDataPath \"#{buildFolder}\" -archivePath \"#{buildFolder}/Archive.xcarchive\" #{xcprettyCmd}"
-	        system "set -o pipefail;time xcodebuild #{argument} archive GCC_PREPROCESSOR_DEFINITIONS='$(inherited) BUILD_IN_CI=1' -derivedDataPath \"#{buildFolder}\" -archivePath \"#{buildFolder}/Archive.xcarchive\" #{xcprettyCmd}"
+                puts "set -o pipefail;time xcodebuild #{argument} archive GCC_PREPROCESSOR_DEFINITIONS='$(inherited) BUILD_IN_CI=1' -derivedDataPath \"#{buildFolder}\" -archivePath \"#{buildFolder}/Archive.xcarchive\" #{xcprettyCmd}"
+                system "set -o pipefail;time xcodebuild #{argument} archive GCC_PREPROCESSOR_DEFINITIONS='$(inherited) BUILD_IN_CI=1' -derivedDataPath \"#{buildFolder}\" -archivePath \"#{buildFolder}/Archive.xcarchive\" #{xcprettyCmd}"
         else
-	        puts "set -o pipefail;time xcodebuild #{argument} build GCC_PREPROCESSOR_DEFINITIONS='$(inherited) BUILD_IN_CI=1' -derivedDataPath \"#{buildFolder}\"#{xcprettyCmd}"
-	        system "set -o pipefail;time xcodebuild #{argument} build GCC_PREPROCESSOR_DEFINITIONS='$(inherited) BUILD_IN_CI=1' -derivedDataPath \"#{buildFolder}\"#{xcprettyCmd}"
+                puts "set -o pipefail;time xcodebuild #{argument} build GCC_PREPROCESSOR_DEFINITIONS='$(inherited) BUILD_IN_CI=1' -derivedDataPath \"#{buildFolder}\"#{xcprettyCmd}"
+                system "set -o pipefail;time xcodebuild #{argument} build GCC_PREPROCESSOR_DEFINITIONS='$(inherited) BUILD_IN_CI=1' -derivedDataPath \"#{buildFolder}\"#{xcprettyCmd}"
         end
 
         return $?
@@ -200,16 +184,9 @@ def make(debug=false,clearTemp=true,autoOpenFinder=false)
 
                 puts ipaFile
 
-                #cername = `ruby $HOME/ztool/ipa/ipa.rb -info #{ipaFile} cername`.chop
-                #certype = `ruby $HOME/ztool/ipa/ipa.rb -info #{ipaFile} certype`.chop
-                #newIpaFile = "#{output}#{name}_#{cername}_#{certype}.ipa"
-
                 newIpaFile = "#{output}#{name}.ipa"
 
                 `mv \"#{ipaFile}\" \"#{newIpaFile}\"`
-                if autoOpenFinder
-                        system "open \"#{newIpaFile}\" -R"
-                end
         else
                 puts "error when make with name #{name}"
         end
