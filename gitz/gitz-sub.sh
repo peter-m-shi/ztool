@@ -14,8 +14,14 @@ done
 
 head=`cat .git/HEAD`
 user=`git config --get user.name`
-
 branch=${head##*/}
+
+echo $branch | grep -E "develop|master" >/dev/null 2>&1
+if [[ $? -eq 0 ]]; then
+    echo "Can not do this on master/develop branch."
+    exit
+fi
+
 prefix=`echo $branch | cut -d - -f1`
 
 if [[ -z "$1" ]]
