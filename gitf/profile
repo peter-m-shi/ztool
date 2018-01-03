@@ -1,0 +1,10 @@
+# complete -o filenames -F _root_command notify
+
+alias ff='gitf feature'
+alias fr='gitf release'
+alias fb='gitf bugfix'
+alias fh='gitf hotfix'
+
+function gitf () {
+    sh $HOME/ztool/gitf/gitf.sh $*
+}
