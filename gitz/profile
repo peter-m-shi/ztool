@@ -5,12 +5,12 @@ function gitz () {
 }
 
 
-alias zzl='gitz pull'
-alias zzh='gitz push'
-alias zzr='gitz request'
-alias zzb='gitz sub'
-alias zzp='gitz super'
-alias zzd='gitz remove'
+alias zl='gitz pull'
+alias zh='gitz push'
+alias zr='gitz request'
+alias zb='gitz sub'
+alias zp='gitz super'
+alias zd='gitz remove'
 
 # 查看git仓库版本号
 alias gv='_gv'
