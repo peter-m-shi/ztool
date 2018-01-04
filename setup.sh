@@ -43,9 +43,8 @@ addStringToFile "env ZSH=$ZSH "'PGTOOLS_AUTO_CHECK=$PGTOOLS_AUTO_CHECK PGTOOLS_A
 
 if [[ "$1" != "" ]]; then
 	if [[ -d "$1" ]]; then
-		sh "$HOME/ztool/utility/echoColor.sh" "-yellow" "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
+		sh "$HOME/ztool/utility/echoColor.sh" "-yellow" "[$1]>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
 		setupTool $1
-		sh "$HOME/ztool/utility/echoColor.sh" "-yellow" ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
 	else
 		failedString="$1 not exsit!"
 		sh "$HOME/ztool/utility/echoColor.sh" "-red" "$failedString"
@@ -56,10 +55,8 @@ else
 	    if test -d $file
 	    then
 		    if [[ "${file##*/}" != "shell" ]] && [[ "${file##*/}" != "image" ]]; then
-		    	echo ${file##*/}
-	    		sh "$HOME/ztool/utility/echoColor.sh" "-yellow" "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
+	    		sh "$HOME/ztool/utility/echoColor.sh" "-yellow" "[${file##*/}]>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
 				setupTool $file
-				sh "$HOME/ztool/utility/echoColor.sh" "-yellow" ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
 				echo 
 			fi
 	    fi
