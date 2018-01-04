@@ -1,6 +1,7 @@
 #!/bin/sh
 
 currentBranch=$2
+options=$3
 
 if [[ $1 = "-a" ]]; then
     count=`git branch | grep develop | wc -l`
@@ -9,7 +10,7 @@ if [[ $1 = "-a" ]]; then
         baseBranch=develop
     else
         echo "Please select the branch based on:"
-        select baseBranch in `ls .git/refs/heads | grep develop`
+        select baseBranch in `ls .git/refs/heads | grep -E "$3"`
         do
             break
         done
