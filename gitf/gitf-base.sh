@@ -10,7 +10,7 @@ if [[ $1 = "-a" ]]; then
         baseBranch=develop
     else
         echo "Please select the branch based on:"
-        select baseBranch in `ls .git/refs/heads | grep -E "$3"`
+        select baseBranch in `git branch | grep -E "$3"`
         do
             break
         done
