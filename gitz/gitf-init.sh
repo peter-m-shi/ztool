@@ -1,16 +1,9 @@
 #!/bin/sh
 
-now_pwd=`pwd`
-while [[ ! -d ".git" ]]
-do
-    cd ..
-    if [[ `pwd` = '/' ]]
-    then
-        echo 'Not a git repository (or in children of the root directory): .git'
-        cd ${now_pwd}
-        exit
-    fi
-done
+sh $GITZ_DIR/gitz-check.sh
+if [[ $? -ne 0 ]]; then
+    exit 1
+fi
 
 git config --list | grep gitflow >/dev/null 2>&1
 

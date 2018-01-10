@@ -1,63 +1,75 @@
 #!/bin/sh
 
-now_pwd=`pwd`
-while [[ ! -d ".git" ]]
-do
-    cd ..
-    if [[ `pwd` = '/' ]]
-    then
-        echo 'Not a git repository (or in children of the root directory): .git'
-        cd ${now_pwd}
-        exit
-    fi
-done
+sh $GITZ_DIR/gitz-check.sh
+if [[ $? -ne 0 ]]; then
+    exit 1
+fi
 
 head=`cat .git/HEAD`
-user=`git config --get user.name`
-branch=${head##*/}
+currentBranch=${head##*/}
+userName=`git config --get user.name`
 
-echo $branch | grep -E "develop|master" >/dev/null 2>&1
-if [[ $? -eq 0 ]]; then
-    echo "Can not do this on master/develop branch."
-    exit
-fi
+#Append the key-value of the given branch
+count=`sh $GITZ_DIR/gitf-nodes.sh -b ${currentBranch} | wc -l`
 
-prefix=`echo $branch | cut -d - -f1`
-
-if [[ -z "$1" ]]
-then
-	if [[ $user = $prefix ]]
-	then
-	    echo "Can not do this on your $user's own branch."
-		exit
-	fi
-	base_branch=${branch}
+if [[ $count -le 1 ]]; then
+    subBranch=`sh $GITZ_DIR/gitf-nodes.sh -b ${currentBranch}`
 else
-	base_branch=$1
+    options="develop"
+    echo "Please select the branch based on:"
+    select subBranch in `sh $GITZ_DIR/gitf-nodes.sh -b ${currentBranch}`
+    do
+        break
+    done
 fi
 
-user_branch="${user}-${base_branch}"
+case $currentBranch in
+    develop-* | develop )
+        #develop find sub,creatation is forbidden
+        if [[ -z $subBranch ]]; then
+            echo can not found subbranch.
+            exit
+        fi
+        git checkout $subBranch
+        ;;
 
-if [[ $base_branch = $user_branch ]]
-then
-    echo "Current branch is $user's own branch yet."
-    exit
-fi
+    release-* | hotfix-* | feature-* | bugfix-* )
+        #release find sub,create a personal branch by user.name if not found
+        if [[ -z $subBranch ]]; then
+            #create
+            if [[ -z $userName ]]; then
+                echo can not found subbranch and creatation is invalid with null username.
+                exit
+            fi
 
-git fetch origin
+            newBranch=$userName-$currentBranch
 
-if [ -f ".git/refs/heads/${user_branch}" ]; then
-    git checkout ${user_branch}
-else
-    if [ -f ".git/refs/remotes/origin/${user_branch}" ]; then
-        git checkout -t origin/${user_branch}
-    else
-        git checkout -b ${base_branch}
-        git push origin ${base_branch}
+            git fetch origin
+            if [ -f ".git/refs/heads/${newBranch}" ]; then
+                git checkout ${newBranch}
+            else
+                if [ -f ".git/refs/remotes/origin/${newBranch}" ]; then
+                    git checkout -t origin/${newBranch}
+                else
+                    git checkout -b ${newBranch}
+                    git push origin ${newBranch}
+                fi
+            fi
 
-        git checkout -b ${user_branch}
-        git push origin ${user_branch}
-    fi
-fi
+            sh $GITZ_DIR/gitf-nodes -a $newBranch $currentBranch
 
-git branch --set-upstream-to=origin/${base_branch}
+            exit
+        fi
+        ;;
+
+    master )
+        #master forbidden
+        echo operation on master is forbidden.
+        exit
+        ;;
+
+     * )
+        echo operation on other branch is forbidden.
+        exit
+        ;;
+esac

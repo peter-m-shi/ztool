@@ -1,6 +1,6 @@
 #!/bin/sh
 
-export GITF_DIR=$(dirname "$(echo "$0" | sed -e 's,\\,/,g')")
+export GITZ_DIR=$(dirname "$(echo "$0" | sed -e 's,\\,/,g')")
 
 # enable debug mode
 if [ "$DEBUG" = "ture" ]; then
@@ -30,13 +30,13 @@ main() {
 	# sanity checks
 	SUBCOMMAND="$1"; shift
 
-	if [ ! -e "$GITF_DIR/gitf-$SUBCOMMAND.sh" ]; then
+	if [ ! -e "$GITZ_DIR/gitf-$SUBCOMMAND.sh" ]; then
 		usage
 		exit 1
 	fi
 
 	# run command
-	sh "$GITF_DIR/gitf-$SUBCOMMAND.sh" $*
+	sh "$GITZ_DIR/gitf-$SUBCOMMAND.sh" $*
 	FLAGS_PARENT="gitf $SUBCOMMAND"
 }
 

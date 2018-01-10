@@ -1,16 +1,11 @@
 #!/bin/sh
 
-now_pwd=`pwd`
-while [[ ! -d ".git" ]]
-do
-    cd ..
-    if [[ `pwd` = '/' ]]
-    then
-        echo 'Not a git repository (or in children of the root directory): .git'
-        cd ${now_pwd}
-        exit
-    fi
-done
+source $HOME/ztool/gitz/profile
+
+sh $GITZ_DIR/gitz-check.sh
+if [[ $? -ne 0 ]]; then
+    exit 1
+fi
 
 head=`cat .git/HEAD`
 user=`git config --get user.name`
@@ -18,18 +13,18 @@ user=`git config --get user.name`
 branch=${head##*/}
 prefix=`echo $branch | cut -d - -f1`
 
-if [[ $user = $prefix ]]
-then
-	if [[ -z "$1" ]]
-	then
-        targetBranch=${branch%%+*}
-        targetBranch=${targetBranch#*-}
-	else
-		targetBranch=$1
-	fi
+baseBranch=`sh $HOME/ztool/gitf/gitf-nodes.sh -p feature-$1`
+
+if [[ -n "$1" ]]; then
+    targetBranch=$1
+elif [[ $user = $prefix ]]; then
+    targetBranch=${branch%%+*}
+    targetBranch=${targetBranch#*-}
+elif [[ -n "$baseBranch" ]]; then
+    targetBranch=$baseBranch
 else
-    echo "Sync operation is forbidden. "
-    echo "Make sure the target branch is your $user's own branch."
+    echo "Neigher based nor personal branch can be found there."
+    exit
 fi
 
 git pull origin $targetBranch

@@ -1,9 +1,9 @@
 # complete -o filenames -F _root_command notify
 
+#GitZ
 function gitz () {
-    sh $HOME/ztool/gitz/gitz.sh $*
+    sh -x $HOME/ztool/gitz/gitz.sh $*
 }
-
 
 alias zl='gitz pull'
 alias zh='gitz push'
@@ -29,3 +29,13 @@ function _prs(){
 function traverse_tags(){
     sh $HOME/ztool/gitz/traverse_tags.sh
 }
+
+#GitF
+function gitf () {
+    sh -x $HOME/ztool/gitz/gitf.sh $*
+}
+
+alias ff='gitf feature'
+alias fr='gitf release'
+alias fb='gitf bugfix'
+alias fh='gitf hotfix'
