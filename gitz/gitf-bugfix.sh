@@ -4,7 +4,7 @@ sh $GITZ_DIR/gitf-init.sh
 
 if [[ $2 = "go" ]]; then
     #Append the key-value of the given branch
-    count=`git branch | grep develop | wc -l`
+    count=`git branch | grep -E "develop|release" | wc -l`
 
     if [[ $count -le 1 ]]; then
         superBranch=develop
@@ -23,10 +23,15 @@ if [[ $2 = "go" ]]; then
         git push origin bugfix-$1
     fi
 elif [[ $2 = "pr" ]]; then
-    targetBranch=`sh $GITZ_DIR/gitf-nodes.sh -p feature-$1`
+    targetBranch=`sh $GITZ_DIR/gitf-nodes.sh -p bugfix-$1`
     sh $GITZ_DIR/gitz-request.sh $targetBranch -f
 elif [[ $2 = "ok" ]]; then
-    sh $GITZ_DIR/gitf-nodes.sh -d $1
+    if [[ -n `git remote -v` ]]; then
+        targetBranch=`sh $GITZ_DIR/gitf-nodes.sh -p bugfix-$1`
+        git checkout $targetBranch && git pull origin $targetBranch
+    fi
+
+    sh $GITZ_DIR/gitf-nodes.sh -d bugfix-$1
     git flow bugfix finish $1
 else
     echo "unkonw argument:$2"

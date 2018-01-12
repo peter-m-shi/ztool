@@ -11,7 +11,6 @@ userName=`git config --get user.name`
 
 #Append the key-value of the given branch
 count=`sh $GITZ_DIR/gitf-nodes.sh -b ${currentBranch} | wc -l`
-
 if [[ $count -le 1 ]]; then
     subBranch=`sh $GITZ_DIR/gitf-nodes.sh -b ${currentBranch}`
 else
@@ -56,9 +55,11 @@ case $currentBranch in
                 fi
             fi
 
-            sh $GITZ_DIR/gitf-nodes -a $newBranch $currentBranch
+            sh $GITZ_DIR/gitf-nodes.sh -a $newBranch $currentBranch
 
             exit
+        else
+            git checkout $subBranch
         fi
         ;;
 

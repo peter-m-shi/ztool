@@ -12,7 +12,7 @@ branch=${head##*/}
 prefix=`echo $branch | cut -d - -f1`
 origin=`git ls-remote --get-url origin`
 
-baseBranch=`sh $GITZ_DIR/gitf-nodes.sh -p feature-$1`
+baseBranch=`sh $GITZ_DIR/gitf-nodes.sh -p $branch`
 
 if [[ -n "$1" ]]; then
     targetBranch=$1

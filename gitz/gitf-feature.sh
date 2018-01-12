@@ -26,6 +26,12 @@ elif [[ $2 = "pr" ]]; then
     targetBranch=`sh $GITZ_DIR/gitf-nodes.sh -p feature-$1`
     sh $GITZ_DIR/gitz-request.sh $targetBranch -f
 elif [[ $2 = "ok" ]]; then
+    if [[ -n `git remote -v` ]]; then
+        targetBranch=`sh $GITZ_DIR/gitf-nodes.sh -p feature-$1`
+        git checkout $targetBranch && git pull origin $targetBranch
+        git checkout feature-$1
+    fi
+
     sh $GITZ_DIR/gitf-nodes.sh -d feature-$1
     git flow feature finish $1
 else
