@@ -23,5 +23,5 @@ elif [[ $2 = "ok" ]]; then
 	    git push --tags
 	fi
 else
-    echo "unkonw argument:$2"
+    echo "Unkonw argument:$2"
 fi

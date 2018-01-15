@@ -18,5 +18,5 @@ elif [[ $1 = "-b" ]]; then
     #Find sub branch of the given branch
     git config --list | grep "ztool.gitf.branch.*=$currentBranch" | cut -d '=' -f1 | cut -d '.' -f 4
 else
-    echo "unkonw argument"
+    echo "Unkonw argument"
 fi

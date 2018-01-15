@@ -14,12 +14,10 @@ case $currentBranch in
     release-* | hotfix-* | feature-* | bugfix-* | develop-* | $userName-*)
         #release find sub,create a personal branch by user.name if not found
         if [[ -z $superBranch ]]; then
-            echo can not found super branch.
+            echo No super branch can be found.
             exit
         fi
-        echo ----$superBranch
         git checkout $superBranch
-        echo eee
         ;;
 
      * )

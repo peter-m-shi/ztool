@@ -19,11 +19,14 @@ then
     targetBranch=${targetBranch#*-}
 elif [[ -n "$baseBranch" ]]; then
     targetBranch=$baseBranch
-else
-    echo "Neigher based nor personal branch can be found there."
-    exit
 fi
 
-git pull origin $targetBranch
+if [[ -n `git remote -v` ]]; then
+	if [[ -n $targetBranch ]]; then
+		git pull origin $targetBranch
+	fi
 
-git push origin $branch
+	git push origin $branch
+else
+	echo "No remote url can be found."
+fi

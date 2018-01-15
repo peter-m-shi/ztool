@@ -8,7 +8,7 @@ fi
 git config --list | grep gitflow >/dev/null 2>&1
 
 if [[ $? -ne 0 ]]; then
-    echo "init config."
+    echo "Init config."
     git config gitflow.branch.master master
     git config gitflow.branch.develop develop
     git config gitflow.prefix.feature feature-

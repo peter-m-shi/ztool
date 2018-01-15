@@ -12,11 +12,11 @@ elif [[ $2 = "pr" ]]; then
 	sh $GITZ_DIR/gitz-request.sh develop -f
 elif [[ $2 = "ok" ]]; then
     if [[ -n `git remote -v` ]]; then
-	    git pull origin master
-	    git pull origin develop
+	    git checkout master && git pull origin master
+	    git checkout develop && git pull origin develop
 	fi
 
     git flow hotfix finish $1
 else
-    echo "unkonw argument:$2"
+    echo "Unkonw argument:$2"
 fi

@@ -35,5 +35,5 @@ elif [[ $2 = "ok" ]]; then
     sh $GITZ_DIR/gitf-nodes.sh -d feature-$1
     git flow feature finish $1
 else
-    echo "unkonw argument:$2"
+    echo "Unkonw argument:$2"
 fi
