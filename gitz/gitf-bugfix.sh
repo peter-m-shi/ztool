@@ -29,6 +29,7 @@ elif [[ $2 = "ok" ]]; then
     if [[ -n `git remote -v` ]]; then
         targetBranch=`sh $GITZ_DIR/gitf-nodes.sh -p bugfix-$1`
         git checkout $targetBranch && git pull origin $targetBranch
+        git checkout bugfix-$1 && git pull origin bugfix-$1
     fi
 
     sh $GITZ_DIR/gitf-nodes.sh -d bugfix-$1

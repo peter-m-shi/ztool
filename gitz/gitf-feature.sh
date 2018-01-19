@@ -29,7 +29,7 @@ elif [[ $2 = "ok" ]]; then
     if [[ -n `git remote -v` ]]; then
         targetBranch=`sh $GITZ_DIR/gitf-nodes.sh -p feature-$1`
         git checkout $targetBranch && git pull origin $targetBranch
-        git checkout feature-$1
+        git checkout feature-$1 && git pull origin feature-$1
     fi
 
     sh $GITZ_DIR/gitf-nodes.sh -d feature-$1

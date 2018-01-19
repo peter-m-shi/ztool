@@ -14,8 +14,10 @@ elif [[ $2 = "ok" ]]; then
     if [[ -n `git remote -v` ]]; then
 	    git checkout master && git pull origin master
 	    git checkout develop && git pull origin develop
+	    git checkout hotfix-$1 && git pull origin hotfix-$1
 	fi
-
+	
+	sh $GITZ_DIR/gitf-nodes.sh -d hotfix-$1
     git flow hotfix finish $1
 else
     echo "Unkonw argument:$2"
