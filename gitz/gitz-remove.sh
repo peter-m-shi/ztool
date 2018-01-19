@@ -28,8 +28,7 @@ else
             git push origin  :${branch}
         fi
 
-        sh $GITZ_DIR/gitf-nodes.sh -d feature-$1
-        sh $GITZ_DIR/gitf-nodes.sh -d bugfix-$1
+        sh $GITZ_DIR/gitf-nodes.sh -d $1
     else
         echo "Remove operation is forbidden. "
         echo "Make sure the target branch is your $user's own branch."
