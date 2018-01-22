@@ -21,11 +21,16 @@ function dependency_gem(){
 }
 
 function dependency_brew(){
-	ret=$(brew list | grep $1)
-	if [[ ! -n $ret ]]; then
-		echo "installing imagemagick by brew...."
-		brew install $1
+	if [[ `uname` -eq "Darwin" ]]; then
+		ret=$(brew list | grep $1)
+		if [[ ! -n $ret ]]; then
+			echo "installing $1 by brew...."
+			brew install $1
+		else
+			echo "current version $ret"
+		fi
 	else
-		echo "current version $ret"
+		echo "not mac os"
+
 	fi
 }
