@@ -2,7 +2,7 @@
 
 #GitZ
 gitz () {
-    sh -x $HOME/ztool/gitz/gitz.sh $*
+    sh $HOME/ztool/gitz/gitz.sh $*
 }
 
 alias zl='gitz pull'
@@ -32,7 +32,7 @@ traverse_tags(){
 
 #GitF
 gitf () {
-    sh -x $HOME/ztool/gitz/gitf.sh $*
+    sh $HOME/ztool/gitz/gitf.sh $*
 }
 
 alias ff='gitf feature'
