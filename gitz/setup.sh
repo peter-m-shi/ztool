@@ -3,7 +3,14 @@
 source $HOME/ztool/dependency/profile
 #安装依赖
 dependency_gem atlassian-stash
-dependency_brew git-flow-avh
+if [[ `uname` -eq "Darwin" ]]; then
+	dependency_brew git-flow-avh
+else
+	curl -OL https://raw.github.com/nvie/gitflow/develop/contrib/gitflow-installer.sh
+	chmod +x gitflow-installer.sh
+	sudo ./gitflow-installer.sh
+fi
+
 
 #添加全局hooks模板
 GIT_TEMPLATES_DIRECTORY="/Applications/GitHub.app/Contents/Resources/git/share/git-core/templates"
