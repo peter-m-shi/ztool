@@ -1,13 +1,13 @@
 #!/bin/sh
 
 sh $GITZ_DIR/gitz-check.sh
-if [[ $? -ne 0 ]]; then
+if [ $? -ne 0 ]; then
     exit 1
 fi
 
 git config --list | grep gitflow >/dev/null 2>&1
 
-if [[ $? -ne 0 ]]; then
+if [ $? -ne 0 ]; then
     echo "Init config."
     git config gitflow.branch.master master
     git config gitflow.branch.develop develop

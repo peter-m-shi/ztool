@@ -41,8 +41,8 @@ addStringToFile "source $ROOT_PROFILE" $RC_FILE
 
 addStringToFile "env ZSH=$ZSH "'PGTOOLS_AUTO_CHECK=$PGTOOLS_AUTO_CHECK PGTOOLS_AUTO_HOURS=$PGTOOLS_AUTO_HOURS'" zsh -f $HOME/ztool/check_update.sh" $RC_FILE
 
-if [[ "$1" != "" ]]; then
-	if [[ -d "$1" ]]; then
+if [ "$1" != "" ]; then
+	if [ -d "$1" ]; then
 		sh "$HOME/ztool/utility/echoColor.sh" "-yellow" "[$1]>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
 		setupTool $HOME/ztool/$1
 	else
@@ -54,7 +54,7 @@ else
 	do
 	    if test -d $file
 	    then
-		    if [[ "${file##*/}" != "shell" ]] && [[ "${file##*/}" != "image" ]]; then
+		    if [ "${file##*/}" != "shell" ] && [ "${file##*/}" != "image" ]; then
 	    		sh "$HOME/ztool/utility/echoColor.sh" "-yellow" "[${file##*/}]>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
 				setupTool $file
 				echo 

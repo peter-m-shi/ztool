@@ -3,7 +3,7 @@
 source $HOME/ztool/gitz/profile
 
 sh $GITZ_DIR/gitz-check.sh
-if [[ $? -ne 0 ]]; then
+if [ $? -ne 0 ]; then
     exit 1
 fi
 
@@ -15,17 +15,17 @@ prefix=`echo $branch | cut -d - -f1`
 
 baseBranch=`sh $GITZ_DIR/gitf-nodes.sh -p $branch`
 
-if [[ -n "$1" ]]; then
+if [ -n "$1" ]; then
     targetBranch=$1
-elif [[ $user = $prefix ]]; then
+elif [ $user = $prefix ]; then
     targetBranch=${branch%%+*}
     targetBranch=${targetBranch#*-}
-elif [[ -n "$baseBranch" ]]; then
+elif [ -n "$baseBranch" ]; then
     targetBranch=$baseBranch
 fi
 
-if [[ -n `git remote -v` ]]; then
-	if [[ -n $targetBranch ]]; then
+if [ -n `git remote -v` ]; then
+	if [ -n $targetBranch ]; then
 		git pull origin $targetBranch
 	fi
 else

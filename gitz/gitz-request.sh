@@ -1,7 +1,7 @@
 #!/bin/sh
 
 sh $GITZ_DIR/gitz-check.sh
-if [[ $? -ne 0 ]]; then
+if [ $? -ne 0 ]; then
     exit 1
 fi
 
@@ -14,12 +14,12 @@ origin=`git ls-remote --get-url origin`
 
 baseBranch=`sh $GITZ_DIR/gitf-nodes.sh -p $branch`
 
-if [[ -n "$1" ]]; then
+if [ -n "$1" ]; then
     targetBranch=$1
-elif [[ $user = $prefix ]]; then
+elif [ $user = $prefix ]; then
     targetBranch=${branch%%+*}
     targetBranch=${targetBranch#*-}
-elif [[ -n "$baseBranch" ]]; then
+elif [ -n "$baseBranch" ]; then
     targetBranch=$baseBranch
 else
     echo "Neigher based nor personal branch can be found there."
@@ -29,12 +29,12 @@ fi
 msg="${targetBranch} pull-request"
 desc=`git log $branch ^origin/$targetBranch --pretty=oneline --abbrev-commit --no-merges`
 
-if [[ "$desc" == "" ]]; then
+if [ "$desc" == "" ]; then
     desc="None"
 fi
 
 result=$(echo $origin | grep "github.com")
-if [[ "$result" != "" ]]
+if [ "$result" != "" ]
 then
     echo "hub pull-request -o -m \"$msg\" -b $branch -h $targetBranch" > pr.sh
 else

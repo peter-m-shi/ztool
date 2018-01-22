@@ -11,7 +11,7 @@ for file in "$TARGET_PATH"/*.mobileprovision
 
 		provisionfile_path="$TARGET_PATH/$provision_name.mobileprovision"
 
-		if [[ $file != $provisionfile_path ]]; then
+		if [ $file != $provisionfile_path ]; then
 			mv "$file" "$provisionfile_path"
 			echo "changeName: ${file##*/}  to: $provision_name.mobileprovision"
 		fi

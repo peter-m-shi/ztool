@@ -2,11 +2,11 @@
 
 sh $GITZ_DIR/gitf-init.sh
 
-if [[ $2 = "go" ]]; then
+if [ $2 = "go" ]; then
 
     count=`git branch | grep develop | wc -l`
 
-    if [[ $count -le 1 ]]; then
+    if [ $count -le 1 ]; then
         superBranch=develop
     else
         options="develop"
@@ -24,7 +24,7 @@ if [[ $2 = "go" ]]; then
     done
 
     git flow release start $1
-    if [[ -n `git remote -v` ]]; then
+    if [ -n `git remote -v` ]; then
 	    git push origin release-$1
 	fi
 
@@ -32,24 +32,24 @@ if [[ $2 = "go" ]]; then
         git branch -m $branch ${branch:5}
     done
 
-elif [[ $2 = "pr" ]]; then
+elif [ $2 = "pr" ]; then
 	sh $GITZ_DIR/gitz-request.sh master -f
 	sh $GITZ_DIR/gitz-request.sh develop -f
 
     currentBranch=release-$1
     superBranch=`sh $GITZ_DIR/gitf-nodes.sh -p ${currentBranch}`
-    if [[ develop != $superBranch ]]; then
+    if [ develop != $superBranch ]; then
         sh $GITZ_DIR/gitz-request.sh $superBranch -f
     fi
 
-elif [[ $2 = "ok" ]]; then
-    if [[ -n `git remote -v` ]]; then
+elif [ $2 = "ok" ]; then
+    if [ -n `git remote -v` ]; then
     	git checkout master && git pull origin master
     	git checkout develop && git pull origin develop
 
         currentBranch=release-$1
         superBranch=`sh $GITZ_DIR/gitf-nodes.sh -p ${currentBranch}`
-        if [[ develop != $superBranch ]]; then
+        if [ develop != $superBranch ]; then
             git checkout $superBranch && git pull origin $superBranch
         fi
 	fi
@@ -57,7 +57,7 @@ elif [[ $2 = "ok" ]]; then
     sh $GITZ_DIR/gitf-nodes.sh -d release-$1
     git flow release finish $1
 
-    if [[ -n `git remote -v` ]]; then
+    if [ -n `git remote -v` ]; then
 	    git push --tags
 	fi
 else

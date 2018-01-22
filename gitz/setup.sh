@@ -3,7 +3,7 @@
 source $HOME/ztool/dependency/profile
 #安装依赖
 dependency_gem atlassian-stash
-if [[ `uname` -eq "Darwin" ]]; then
+if [ `uname` -eq "Darwin" ]; then
 	dependency_brew git-flow-avh
 
 	#添加全局hooks模板
