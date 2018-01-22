@@ -24,7 +24,7 @@ if [ $2 = "go" ]; then
     done
 
     git flow release start $1
-    if [ -n `git remote -v` ]; then
+    if [ -n "`git remote -v`" ]; then
 	    git push origin release-$1
 	fi
 
@@ -43,7 +43,7 @@ elif [ $2 = "pr" ]; then
     fi
 
 elif [ $2 = "ok" ]; then
-    if [ -n `git remote -v` ]; then
+    if [ -n "`git remote -v`" ]; then
     	git checkout master && git pull origin master
     	git checkout develop && git pull origin develop
 
@@ -57,7 +57,7 @@ elif [ $2 = "ok" ]; then
     sh $GITZ_DIR/gitf-nodes.sh -d release-$1
     git flow release finish $1
 
-    if [ -n `git remote -v` ]; then
+    if [ -n "`git remote -v`" ]; then
 	    git push --tags
 	fi
 else

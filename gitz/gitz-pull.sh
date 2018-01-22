@@ -24,7 +24,7 @@ elif [ -n "$baseBranch" ]; then
     targetBranch=$baseBranch
 fi
 
-if [ -n `git remote -v` ]; then
+if [ -n "`git remote -v`" ]; then
 	if [ -n $targetBranch ]; then
 		git pull origin $targetBranch
 	fi
