@@ -3,7 +3,7 @@ RET="failed"
 
 source $HOME/ztool/dependency/profile
 
-function _FixBuilderFile(){
+_FixBuilderFile(){
 	if [[ -d "$1" ]]; then
 		SYS_BUILDER_FILE=$(find "$1" -name "builder.rb" | grep woz)
 		if [[ -n $SYS_BUILDER_FILE ]]; then

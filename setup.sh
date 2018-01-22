@@ -3,7 +3,7 @@
 ROOT_PROFILE="$HOME/.profile"
 PG_PROFILE="$HOME/ztool/profile"
 
-function includeString(){
+includeString(){
 	echo "$1" | grep -q "$2" && return 0 || return 1
 }
 
@@ -14,7 +14,7 @@ elif includeString "$SHELL" "/bin/bash"; then
 	RC_FILE="$HOME/.bashrc"
 fi
 
-function addStringToFile(){
+addStringToFile(){
 	ret=$(cat $2 | grep "$1")
 	if [ "$ret" = "" ] ;then
 		echo "
@@ -25,7 +25,7 @@ $1
 	fi
 }
 
-function setupTool(){
+setupTool(){
 	echo 'source '$1"/profile" $PG_PROFILE
 	addStringToFile 'source '$1"/profile" $PG_PROFILE
 	sh "$1/setup.sh"

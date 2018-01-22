@@ -1,4 +1,4 @@
-function dependency_gem(){
+dependency_gem(){
 	if [[ ! -n $2 ]]; then
 		ret=$(gem list | grep $1)
 		if [[ ! -n $ret ]]; then
@@ -20,17 +20,12 @@ function dependency_gem(){
 	fi
 }
 
-function dependency_brew(){
-	if [[ `uname` -eq "Darwin" ]]; then
-		ret=$(brew list | grep $1)
-		if [[ ! -n $ret ]]; then
-			echo "installing $1 by brew...."
-			brew install $1
-		else
-			echo "current version $ret"
-		fi
+dependency_brew(){
+	ret=$(brew list | grep $1)
+	if [[ ! -n $ret ]]; then
+		echo "installing $1 by brew...."
+		brew install $1
 	else
-		echo "not mac os"
-
+		echo "current version $ret"
 	fi
 }

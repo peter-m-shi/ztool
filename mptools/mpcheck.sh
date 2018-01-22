@@ -2,7 +2,7 @@
 MPTOOLS_PATH="$HOME/ztool/mptools/"
 TARGET_PATH="$HOME"/'Library/MobileDevice/Provisioning Profiles/'
 
-function _printProvision()
+_printProvision()
 {
 	iphoneID=$1
 	#iphone id  长度为40位

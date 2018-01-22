@@ -2,7 +2,7 @@
 MPTOOLS_PATH="$HOME/ztool/mptools/"
 TARGET_PATH="$HOME"/'Library/MobileDevice/Provisioning Profiles/'
 
-function _install(){
+_install(){
 	#获取当前mobileprovision identifier
 	identifier=$(sh $MPTOOLS_PATH/mputil.sh "$1" Entitlements:application-identifier)
 

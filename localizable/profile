@@ -1,6 +1,6 @@
 #mobileprovision tools
 
-function lochelp(){
+lochelp(){
 	echo '
 	1、locinit:并修改.wozniak
 	2、loc2x:转为xls文件
@@ -13,14 +13,14 @@ function lochelp(){
 	Github地址：https://github.com/fousa/woz'
 }
 
-function locinit(){
+locinit(){
     woz setup
 }
 
-function loc2s(){
+loc2s(){
     woz import --csv Localizable.csv
 }
 
-function loc2x(){
+loc2x(){
     woz export -c
 }

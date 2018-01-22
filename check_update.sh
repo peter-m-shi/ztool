@@ -4,15 +4,15 @@ TOOLS_FOLDER="$HOME/ztool"
 
 zmodload zsh/datetime
 
-function _current_epoch() {
+_current_epoch() {
   echo $(( $EPOCHSECONDS / 60 / 60 ))
 }
 
-function _update_time() {
+_update_time() {
   echo "LAST_EPOCH=$(_current_epoch)" >! $TOOLS_FOLDER/.tools-timestamp
 }
 
-function _upgrade_tools() {
+_upgrade_tools() {
   env ZSH=$ZSH /bin/sh $TOOLS_FOLDER/update.sh
   # update the tools file
   _update_time
