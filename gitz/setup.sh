@@ -1,10 +1,14 @@
 #!/bin/sh
 
+
 source $HOME/ztool/dependency/profile
 #安装依赖
 dependency_gem atlassian-stash
-if [ `uname` -eq "Darwin" ]; then
+
+if [ "`uname`" == "Darwin" ]; then
+	echo 1.1
 	dependency_brew git-flow-avh
+	echo 2.2
 
 	#添加全局hooks模板
 	GIT_TEMPLATES_DIRECTORY="/Applications/GitHub.app/Contents/Resources/git/share/git-core/templates"

@@ -1,5 +1,5 @@
 dependency_gem(){
-	if [ ! -n $2 ]; then
+	if [ -z $2 ]; then
 		ret=$(gem list | grep $1)
 		if [ ! -n $ret ]; then
 			echo "installing $1 by gem...."
