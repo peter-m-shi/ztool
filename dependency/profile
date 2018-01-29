@@ -22,7 +22,7 @@ dependency_gem(){
 
 dependency_brew(){
 	ret=$(brew list | grep $1)
-	if [ ! -n $ret ]; then
+	if [ -z "$ret" ]; then
 		echo "installing $1 by brew...."
 		brew install $1
 	else
