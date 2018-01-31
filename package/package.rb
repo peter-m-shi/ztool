@@ -59,7 +59,19 @@ def setEnv(cfg)
                                                         puts "#{tempFile} not exist!"
                                                         next
                                                 end
-                                                modifyPlist(k,v,tempFile)
+                                                if v.class == Array 
+                                                    v.each do |tDict| 
+                                                        if tDict.class == Hash
+                                                            addPlistDict(k,tempFile)
+                                                            tDict.each do |nKey, nValue|
+                                                                addPlistDictKeyValue(k,nKey,nValue,tempFile)
+                                                            end
+                                                        end
+                                                    end
+                                                else 
+                                                    modifyPlist(k,v,tempFile)
+                                                end
+                                                
                                         end
                                 end
                         elsif extname == ".xcscheme" or key == ".xcscheme"

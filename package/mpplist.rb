@@ -21,3 +21,25 @@ def addPlist(keyPath,keyValue,plist)
 		puts "[A:Plist] do nothing of keyPath: #{keyPath} keyValue: #{keyValue}"
 	end
 end
+
+def addPlistDict(nameDict,plist)
+	if nameDict
+		cmdString = "/usr/libexec/PlistBuddy -c 'Add :#{nameDict} dict' \"#{plist}\""
+		system cmdString
+		puts "[A:Plist] #{nameDict} >> create dict"
+	else
+		puts "[A:Plist] do nothing of keyPath: #{nameDict} create dict"
+	end
+	
+end
+
+def addPlistDictKeyValue(nameDict,keyPath,keyValue,plist)
+	if keyPath and keyValue
+		cmdString = "/usr/libexec/PlistBuddy -c 'Add :#{nameDict}:#{keyPath} string \"#{keyValue}\"' \"#{plist}\""
+		system cmdString
+		puts "[A:Plist] #{nameDict} add:  #{keyPath} >> #{keyValue}"
+	else
+		puts "[A:Plist] do nothing of dict #{nameDict}"
+	end
+end
+
