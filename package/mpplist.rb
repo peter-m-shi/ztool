@@ -24,6 +24,8 @@ end
 
 def addPlistDict(nameDict,plist)
 	if nameDict
+		preCmdString = "/usr/libexec/PlistBuddy -c 'Delete :#{nameDict}' \"#{plist}\""
+		system preCmdString
 		cmdString = "/usr/libexec/PlistBuddy -c 'Add :#{nameDict} dict' \"#{plist}\""
 		system cmdString
 		puts "[A:Plist] #{nameDict} >> create dict"
@@ -35,6 +37,8 @@ end
 
 def addPlistDictKeyValue(nameDict,keyPath,keyValue,plist)
 	if keyPath and keyValue
+		preCmdString = "/usr/libexec/PlistBuddy -c 'Delete :#{nameDict}:#{keyPath}' \"#{plist}\""
+		system preCmdString
 		cmdString = "/usr/libexec/PlistBuddy -c 'Add :#{nameDict}:#{keyPath} string \"#{keyValue}\"' \"#{plist}\""
 		system cmdString
 		puts "[A:Plist] #{nameDict} add:  #{keyPath} >> #{keyValue}"

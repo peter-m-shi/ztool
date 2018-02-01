@@ -60,14 +60,17 @@ def setEnv(cfg)
                                                         next
                                                 end
                                                 if v.class == Array 
-                                                    v.each do |tDict| 
-                                                        if tDict.class == Hash
-                                                            addPlistDict(k,tempFile)
+                                                    addPlistDict(k,tempFile)
+                                                    if !v.empty?
+                                                       v.each do |tDict| 
+                                                         if tDict.class == Hash
                                                             tDict.each do |nKey, nValue|
                                                                 addPlistDictKeyValue(k,nKey,nValue,tempFile)
                                                             end
-                                                        end
+                                                         end
+                                                       end
                                                     end
+                                              
                                                 else 
                                                     modifyPlist(k,v,tempFile)
                                                 end
