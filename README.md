@@ -9,203 +9,97 @@ use the follow command to install all the tools.
 
 use the foloow command to install a special tool.
 
-	sh setup.sh mptools
+	sh setup.sh ipa
 	
 ##How to use tools
 
-#gitz 
 
-[TOC]
 
-##安装##
+##gitf##
 
-打开终端，执行如下命令：
 
->$ git clone https://github.com/peter-m-shi/ztool.git $HOME/ztool;sh $HOME/ztool/setup.sh
+###feature flow###
 
+Start a feature flow
 
+	ff featureA go
 
-##gitf工具##
+Create a feature branch merge pull request
 
-gitf工具包含了如下几个命令：
+	ff featureA pr
 
+Finish a feature flow
 
+	ff featureA ok
 
-**gif feature**（亦可简写为**ff**）
+###release flow###
 
+Start a release flow
 
+	fr 5.0.0 go
 
-功能：
+Create a release branch merge pull request
 
+	fr 5.0.0 pr
+	
+Finish a release flow
 
+	fr 5.0.0 ok
 
-（1）从develop拉取feature分支，开始工作；
+###bugfix flow###
 
-（2）完成开发，合并回原分支.
+Start a bugfix flow
 
+	fb JIRA-4902 go
 
+Create a bugfix branch merge pull request
 
-示例：
+	fb JIRA-4902 pr
+	
+Finish a bugfix flow
 
+	fb JIRA-4902 ok
 
+###hotfix flow###
 
->$ ==ff== function1 ==go==
+Start a hotfix flow
 
+	fh adCrash go
 
+Create a hotfix branch merge pull request
 
->$ ==ff== function1 ==ok==
+	fh adCrash pr
+	
+Finish a hotfix flow
 
+	fh adCrash ok
+	
+##gitz##
 
 
-Notes:
+Create a sub personal branch:
 
-（1）根据提示选择从develop，develop-A，develop-B拉取分支。
+	zb
 
-（2）上述命令中的"function1"为feature分支名。
+Switch back to super branch:
 
+	zp
 
+Delete both local and remote branch:
+	
+	zd feature-newTest
 
+Pull update from remote
 
+	zl
+	
+Push update to remote
 
-**gif release**（亦可简写为**fr**）
+	zh
 
+Create a pull request to stash server
 
-
-功能：
-
-
-
-（1）从develop拉取release分支，开始集成测试；
-
-（2）完成测试，合并到master分支（并打tag）和develop分支。
-
-
-
-示例：
-
-
-
->$ ==fr== 7.0.0 ==go==
-
->$ ==fr== 7.0.0 ==ok==
-
-
-
-Notes：上述命令中的"7.0.0"为待发布版本号。
-
-
-
-**gif bugfix**（亦可简写为**fb**）
-
-
-
-功能：
-
-
-
-（1）从release拉取bugfix分支，修复bug；
-
-（2）完成修复，合并回release分支。
-
-
-
-示例：
-
-
-
-> $ ==fb== MGV6-1234 ==go==
-
-
-
-> $ ==fb== MGV6-1234 ==ok==
-
-
-
-Notes：上述命令中的“MGV6-1234”为BugID.
-
-
-
-**gif hotfix**（亦可简写为**fh**）
-
-
-
-功能：
-
-
-
-（1）从master拉取hotfix分支，开始修复线上bug；
-
-（2）完成修复，合并回master分支。
-
-
-
-示例：
-
-
-
->$ ==fh== crash ==go==
-
-
-
->$ ==fh== crash ==ok==
-
-
-
-
-
-##gitz工具##
-
-gitz工具集的使用场景：多人协作于同一分支（协作开发同一feature、sub-feature，协作修改同一bugfix，hotfix）
-
-
-
-**gitz pull**
-
-
-
-从当前personal分支的上级分支拉取更新
-
-
-
-**gitz push**
-
-
-
-向当前personal分支的上级分支合并修改
-
-
-
-**gitz request**
-
-
-
-直接在命令行页面提起pull request，不需要打开Bitbucket创建pull request，提请成功会出现弹窗提示。
-
-
-
-**git sub**
-
-
-
-从上级分支切换到personal分支
-
-
-
-**git super**
-
-
-
-从当前的personal分支切换到上级分支
-
-
-
-**git remove**
-
-
-
-从本地和远程移除名为XXX的分支
-
-
+	zr
 
 
 #localizable
@@ -326,25 +220,29 @@ Remove all the provisionprofile file
 	
 Install provisionprofile file
 
-	mpinstall test.provisionprofile
+	mpinstall xxx.provisionprofile
 	
 Install provisionprofile folder
 
-	mpinstall ./provisionprofileFolder
+	mpinstall ./Download/Profiles/
 
 #utility
 
-Quik start project by xcode
+Quik start project by Xcode
 
 	xx
 	
-Quik start project by appcode
+Quik start project by AppCode
 
 	aa
+	
+Quik start project by Android Studio
+
+	ss
 	
 #shell
 
 change shell to zsh
 
-	sh setup.sh
+	sh setup.sh shell
    
