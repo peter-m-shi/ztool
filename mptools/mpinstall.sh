@@ -16,7 +16,7 @@ _install(){
 			ret_certificate=$(sh $MPTOOLS_PATH/mputil.sh "$file" DeveloperCertificates | grep "iPhone Developer")
 			ret_identifier=$(sh $MPTOOLS_PATH/mputil.sh "$file" Entitlements:application-identifier)
 			
-		  	if [ "$ret_identifier" == "$identifier" && "$ret_certificate" == "$certificate" ]; then
+		  	if [ "$ret_identifier" == "$identifier" -a "$ret_certificate" == "$certificate" ]; then
 		  		#statements
 		  		echo [删除]:$file[$ret]
 		  		rm -f "$file"
