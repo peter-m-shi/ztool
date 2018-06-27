@@ -65,6 +65,7 @@ Finish a feature flow
 
 <img src="gitz/res/ff-ok.gif" width="80%" height="80%" />
 
+
 #### release flow
 
 Start a release flow
