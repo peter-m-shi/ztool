@@ -23,14 +23,20 @@ use the foloow command to install a special tool.
 Start a feature flow
 
 	ff featureA go
+ 
+<img src="gitz/res/ff-go.gif" width="80%" height="80%" />
 
 Create a feature branch merge pull request
 
 	ff featureA pr
 
+<img src="gitz/res/ff-pr.gif" width="80%" height="80%" />
+
 Finish a feature flow
 
 	ff featureA ok
+
+<img src="gitz/res/ff-ok.gif" width="80%" height="80%" />
 
 ###release flow###
 
@@ -38,13 +44,19 @@ Start a release flow
 
 	fr 5.0.0 go
 
+<img src="gitz/res/fr-go.gif" width="80%" height="80%" />
+
 Create a release branch merge pull request
 
 	fr 5.0.0 pr
-	
+
+<img src="gitz/res/fr-pr.gif" width="80%" height="80%" />
+
 Finish a release flow
 
 	fr 5.0.0 ok
+
+<img src="gitz/res/fr-ok.gif" width="80%" height="80%" />
 
 ###bugfix flow###
 
@@ -81,26 +93,35 @@ Create a sub personal branch:
 
 	zb
 
+<img src="gitz/res/zb.gif" width="80%" height="80%" />
+<img src="gitz/res/zb2.gif" width="80%" height="80%" />
+
 Switch back to super branch:
 
 	zp
 
+<img src="gitz/res/zp.gif" width="80%" height="80%" />
 Delete both local and remote branch:
 	
 	zd feature-newTest
 
+<img src="gitz/res/zd.gif" width="80%" height="80%" />
+
 Pull update from remote
 
 	zl
-	
+
 Push update to remote
 
 	zh
+
+<img src="gitz/res/zh.gif" width="80%" height="80%" />
 
 Create a pull request to stash server
 
 	zr
 
+<img src="gitz/res/zr.gif" width="80%" height="80%" />
 
 #localizable
 
