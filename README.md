@@ -2,13 +2,13 @@
 <font color="#450cc4" size = "3px">	
 
 - [How to install](How to install)
-- [How to use tools](How to use tools)
-	- [gitf](gitf)
+- [How to use tools](## How to use tools)
+	- [gitf](### gitf)
 		- [feature flow](feature flow)
 		- [release flow](release flow)
 		- [bugfix flow](bugfix flow)
 		- [hotfix flow](hotfix flow)
-	- [gitz](gitz)
+	- [gitz](### gitz)
 		- [How to switch sub](How to switch sub)
 		- [How to switch super](How to switch super)
 		- [How to delete](How to delete)
@@ -20,9 +20,9 @@
 	- [localizable](localizable)
 	- [utility](utility)
 	- [shell](shell)
-	- <a href="# shell">shell</a>
+	- <a href="### shell">shell</a>
 
-##How to install
+## How to install
 
 use the follow command to install all the tools.
 
@@ -32,14 +32,14 @@ use the foloow command to install a special tool.
 
 	sh setup.sh ipa
 	
-##How to use tools
+## How to use tools
 
 
 
-##gitf##
+### gitf ###
 
 
-###feature flow###
+#### feature flow ####
 
 Start a feature flow
 
@@ -59,7 +59,7 @@ Finish a feature flow
 
 <img src="gitz/res/ff-ok.gif" width="80%" height="80%" />
 
-###release flow###
+#### release flow ####
 
 Start a release flow
 
@@ -79,7 +79,7 @@ Finish a release flow
 
 <img src="gitz/res/fr-ok.gif" width="80%" height="80%" />
 
-###bugfix flow###
+#### bugfix flow ####
 
 Start a bugfix flow
 
@@ -93,7 +93,7 @@ Finish a bugfix flow
 
 	fb JIRA-4902 ok
 
-###hotfix flow###
+#### hotfix flow ####
 
 Start a hotfix flow
 
@@ -107,9 +107,9 @@ Finish a hotfix flow
 
 	fh adCrash ok
 	
-##gitz##
+### gitz ###
 
-###How to switch sub###
+#### How to switch sub
 Create a sub personal branch:
 
 	zb
@@ -117,41 +117,40 @@ Create a sub personal branch:
 <img src="gitz/res/zb.gif" width="80%" height="80%" />
 <img src="gitz/res/zb2.gif" width="80%" height="80%" />
 
-###How to switch super###
+#### How to switch super###
 Switch back to super branch:
 
 	zp
 
 <img src="gitz/res/zp.gif" width="80%" height="80%" />
 
-###How to delete###
+#### How to delete###
 Delete both local and remote branch:
 	
 	zd feature-newTest
 
 <img src="gitz/res/zd.gif" width="80%" height="80%" />
 
-###How to pull###
+#### How to pull###
 Pull update from remote
 
 	zl
 
-###How to push###
+#### How to push###
 Push update to remote
 
 	zh
 
 <img src="gitz/res/zh.gif" width="80%" height="80%" />
 
-###How to create pull request###
+#### How to create pull request###
 Create a pull request to stash server
 
 	zr
 
 <img src="gitz/res/zr.gif" width="80%" height="80%" />
 
-	
-#package
+### package
 
 Change xcode project configuration by gien config file
 
@@ -239,7 +238,7 @@ Custom|APP_CUSTOM|String type, etc. "custom filed"
 	set CFBundleVersionAutoIncrease=1 in Info.plist
 
 	
-#mptools
+### mptools
 
 List all the provisionprofile file
 
@@ -257,7 +256,7 @@ Install provisionprofile folder
 
 	mpinstall ./Download/Profiles/
 
-#localizable
+# localizable
 
 Use locinit to init configrure in  localizable folder
 	
@@ -275,7 +274,7 @@ Use lochelp to show help info
 	
 	lochelp
 	
-#utility
+# utility
 
 Quik start project by Xcode
 
@@ -289,7 +288,7 @@ Quik start project by Android Studio
 
 	ss
 	
-#shell
+### shell
 
 change shell to zsh
 
