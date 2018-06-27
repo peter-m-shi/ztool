@@ -1,7 +1,7 @@
 
 <font color="#450cc4" size = "3px">	
 
-##How to install
+## How to install
 
 use the follow command to install all the tools.
 
@@ -11,14 +11,14 @@ use the foloow command to install a special tool.
 
 	sh setup.sh ipa
 	
-##How to use tools
+## How to use tools
 
 
 
-##gitf##
+### gitf ###
 
 
-###feature flow###
+#### feature flow ####
 
 Start a feature flow
 
@@ -38,7 +38,7 @@ Finish a feature flow
 
 <img src="gitz/res/ff-ok.gif" width="80%" height="80%" />
 
-###release flow###
+#### release flow ####
 
 Start a release flow
 
@@ -58,7 +58,7 @@ Finish a release flow
 
 <img src="gitz/res/fr-ok.gif" width="80%" height="80%" />
 
-###bugfix flow###
+#### bugfix flow ####
 
 Start a bugfix flow
 
@@ -72,7 +72,7 @@ Finish a bugfix flow
 
 	fb JIRA-4902 ok
 
-###hotfix flow###
+#### hotfix flow ####
 
 Start a hotfix flow
 
@@ -86,7 +86,7 @@ Finish a hotfix flow
 
 	fh adCrash ok
 	
-##gitz##
+### gitz ###
 
 
 Create a sub personal branch:
@@ -123,7 +123,7 @@ Create a pull request to stash server
 
 <img src="gitz/res/zr.gif" width="80%" height="80%" />
 
-#localizable
+### localizable
 
 Use locinit to init configrure in  localizable folder
 	
@@ -141,7 +141,7 @@ Use lochelp to show help info
 	
 	lochelp
 	
-#package
+### package
 
 Change xcode project configuration by gien config file
 
@@ -229,7 +229,7 @@ Custom|APP_CUSTOM|String type, etc. "custom filed"
 	set CFBundleVersionAutoIncrease=1 in Info.plist
 
 	
-#mptools
+### mptools
 
 List all the provisionprofile file
 
@@ -247,7 +247,7 @@ Install provisionprofile folder
 
 	mpinstall ./Download/Profiles/
 
-#utility
+### utility
 
 Quik start project by Xcode
 
@@ -261,7 +261,7 @@ Quik start project by Android Studio
 
 	ss
 	
-#shell
+### shell
 
 change shell to zsh
 
