@@ -54,7 +54,7 @@ else
 	do
 	    if test -d $file
 	    then
-		    if [ "${file##*/}" != "shell" ] && [ "${file##*/}" != "image" ]; then
+		    if [ "${file##*/}" != "shell" ] && [ "${file##*/}" != "image" ] && [ "${file##*/}" != "localizable" ]; then
 	    		sh "$HOME/ztool/utility/echoColor.sh" "-yellow" "[${file##*/}]>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
 				setupTool $file
 				echo 
