@@ -139,8 +139,6 @@ def build(debug=false, arguments="",buildAndMake=false)
 
         argument += " #{arguments} "
 
-        system "echo #{argument}"
-
         xcprettyCmd = ""
         if isGemInstalled('xcpretty')
                 xcprettyCmd = " | xcpretty --no-color"
@@ -148,11 +146,9 @@ def build(debug=false, arguments="",buildAndMake=false)
         #编译当前工程
 
         if buildAndMake
-                puts "set -o pipefail;time xcodebuild #{argument} archive GCC_PREPROCESSOR_DEFINITIONS='$(inherited) BUILD_IN_CI=1' -derivedDataPath \"#{buildFolder}\" -archivePath \"#{buildFolder}/Archive.xcarchive\" #{xcprettyCmd}"
-                system "set -o pipefail;time xcodebuild #{argument} archive GCC_PREPROCESSOR_DEFINITIONS='$(inherited) BUILD_IN_CI=1' -derivedDataPath \"#{buildFolder}\" -archivePath \"#{buildFolder}/Archive.xcarchive\" #{xcprettyCmd}"
+	        system "set -o pipefail;time xcodebuild #{argument} archive GCC_PREPROCESSOR_DEFINITIONS='$(inherited) BUILD_IN_CI=1' -derivedDataPath \"#{buildFolder}\" -archivePath \"#{buildFolder}/Archive.xcarchive\" #{xcprettyCmd}"
         else
-                puts "set -o pipefail;time xcodebuild #{argument} build GCC_PREPROCESSOR_DEFINITIONS='$(inherited) BUILD_IN_CI=1' -derivedDataPath \"#{buildFolder}\"#{xcprettyCmd}"
-                system "set -o pipefail;time xcodebuild #{argument} build GCC_PREPROCESSOR_DEFINITIONS='$(inherited) BUILD_IN_CI=1' -derivedDataPath \"#{buildFolder}\"#{xcprettyCmd}"
+	        system "set -o pipefail;time xcodebuild #{argument} build GCC_PREPROCESSOR_DEFINITIONS='$(inherited) BUILD_IN_CI=1' -derivedDataPath \"#{buildFolder}\"#{xcprettyCmd}"
         end
 
         return $?
@@ -170,9 +166,7 @@ def make(debug=false,clearTemp=true,autoOpenFinder=false)
                 output = outputFolder
 
                 system "rm -rf #{output}/*"
-
-                system "echo \"<?xml version=\"1.0\" encoding=\"UTF-8\"?><!DOCTYPE plist PUBLIC \"-//Apple//DTD PLIST 1.0//EN\" \"http://www.apple.com/DTDs/PropertyList-1.0.dtd\"><plist version=\"1.0\"><dict><key>compileBitcode</key><false/></dict></plist>\" > #{buildFolder}/temp.plist"
-                system "xcodebuild -exportArchive -archivePath \"#{xcarchive}\" -exportPath \"#{output}\" -exportOptionsPlist \"#{buildFolder}/temp.plist\""
+                system "xcodebuild -exportArchive -archivePath \"#{xcarchive}\" -exportPath \"#{output}\" -exportOptionsPlist \"exportOption.plist\""
 
                 if File::exist?("#{dSYM}")
                         system "cp -r \"#{dSYM}\" \"#{output}#{name}.dSYM\""
