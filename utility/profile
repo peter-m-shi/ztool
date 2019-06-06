@@ -32,6 +32,10 @@ lka(){
 	ruby $HOME/ztool/utility/linkMapAnalyzer.rb $1
 }
 
+vs(){
+	open -a Visual\ Studio\ Code $1
+}
+
 gemfix(){
 	sudo gem uninstall $1
 	sudo gem install -n /usr/local/bin $1
