@@ -1,25 +1,41 @@
 # complete -o filenames -F _root_command notify
 
-function gitz () {
+#GitZ
+gitz () {
     sh $HOME/ztool/gitz/gitz.sh $*
 }
 
-alias pr='gitz request'
+alias zl='gitz pull'
+alias zh='gitz push'
+alias zr='gitz request'
+alias zb='gitz sub'
+alias zp='gitz super'
+alias zd='gitz remove'
 
 # 查看git仓库版本号
 alias gv='_gv'
-function _gv(){
+_gv(){
     local base=${1:-1}
     echo version:$((`git rev-list --all|wc -l` + $base))
 }
 
 # 查看当前合并请求状态
 alias prs='_prs'
-function _prs(){
+_prs(){
     ruby $HOME/ztool/gitz/pr_state.rb
 }
 
 # 遍历当前Git仓库tag
-function traverse_tags(){
+traverse_tags(){
     sh $HOME/ztool/gitz/traverse_tags.sh
 }
+
+#GitF
+gitf () {
+    sh $HOME/ztool/gitz/gitf.sh $*
+}
+
+alias ff='gitf feature'
+alias fr='gitf release'
+alias fb='gitf bugfix'
+alias fh='gitf hotfix'

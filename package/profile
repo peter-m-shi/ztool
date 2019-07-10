@@ -1,6 +1,6 @@
 #package tools
 
-function pkg(){
+pkg(){
     ruby $HOME/ztool/package/package.rb $1 $2 $3
 }
 

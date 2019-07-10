@@ -4,7 +4,7 @@ TOOL_FOLDER="$HOME/ztool/shell"
 USER_FOLDER="$HOME"
 
 #判断shell环境
-if [[ "$SHELL" == "/bin/zsh" ]]; then
+if [ "$SHELL" == "/bin/zsh" ]; then
 	echo "[shell] zsh env has already been setuped."
 else
 	#安装oh my zsh

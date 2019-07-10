@@ -15,7 +15,7 @@
 # echo  "\033[37m白色字\033[0m"   -white
 
 
-if [[ $# != 2 ]]; then
+if [ $# != 2 ]; then
 	echo "\033[31m Need Two Params: [color] [string] \033[0m"
 	exit 1
 fi
@@ -25,7 +25,7 @@ fi
 colorParam=$1
 fontColor="33m"
 
-if [[ -z $1 ]]; then
+if [ -z $1 ]; then
 	# do nothing
 	fontColor="33m"
 else

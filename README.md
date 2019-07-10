@@ -1,7 +1,27 @@
 
 <font color="#450cc4" size = "3px">	
 
-##How to install
+* [How to install](#how-to-install)
+* [How to use tools](#how-to-use-tools)
+	* [gitf](#gitf)
+		* [feature flow](#feature-flow)
+		* [release flow](#release-flow)
+		* [bugfix flow](#bugfix-flow)
+		* [hotfix flow](#hotfix-flow)
+	* [gitz](#gitz)
+		* [How to switch sub](#how-to-switch-sub)
+		* [How to switch super](#how-to-switch-super)
+		* [How to delete](#how-to-delete)
+		* [How to pull](#how-to-pull)
+		* [How to push](#how-to-push)
+		* [How to create pull request](#how-to-create-pull-request)
+	* [package](#package)
+	* [mptools](#mptools)
+	* [localizable](#localizable)
+	* [utility](#utility)
+	* [shell](#shell)
+
+## How to install
 
 use the follow command to install all the tools.
 
@@ -9,39 +29,135 @@ use the follow command to install all the tools.
 
 use the foloow command to install a special tool.
 
-	sh setup.sh mptools
+	sh setup.sh ipa
 	
-##How to use tools
+## How to use tools
 
-#git
-	usage: gitz  <subcommand>"
-	Available subcommands are:
-	   sub      switch/create sub personal branch base on the given branch, base on current branch if no params.
-	   super   switch to personal's super branch of current branch"
-	   sync   sync from the given branch, from current branch if no params.
-	   request   create a pull request base on current personal's branch.
-	   remove   remove both of the local and remote branch of given name.
-	Try 'gitz help <subcommand> help' for details.
+### gitf 
 
-#localizable
+#### before use gitf
 
-Use locinit to init configrure in  localizable folder
-	
-	locinit
+Make sure user name is configrured, it will be used for checking a branch is personal or not.
 
-Use loc2s to convert xls to strings file
-	
-	loc2s
+	git config --global user.name sp
 
-Use loc2x to convert strings file to xls
+Make sure stash config is inited, before 'pr' can be used.
+
+	stash configure
+
+#### feature flow
+
+Start a feature flow
+
+	ff featureA go
+ 
+<img src="gitz/res/ff-go.gif" width="80%" height="80%" />
+
+Create a feature branch merge pull request
+
+	ff featureA pr
+
+<img src="gitz/res/ff-pr.gif" width="80%" height="80%" />
+
+Finish a feature flow
+
+	ff featureA ok
+
+<img src="gitz/res/ff-ok.gif" width="80%" height="80%" />
+
+
+#### release flow
+
+Start a release flow
+
+	fr 5.0.0 go
+
+<img src="gitz/res/fr-go.gif" width="80%" height="80%" />
+
+Create a release branch merge pull request
+
+	fr 5.0.0 pr
+
+<img src="gitz/res/fr-pr.gif" width="80%" height="80%" />
+
+Finish a release flow
+
+	fr 5.0.0 ok
+
+<img src="gitz/res/fr-ok.gif" width="80%" height="80%" />
+
+#### bugfix flow
+
+Start a bugfix flow
+
+	fb JIRA-4902 go
+
+Create a bugfix branch merge pull request
+
+	fb JIRA-4902 pr
 	
-	loc2x
+Finish a bugfix flow
+
+	fb JIRA-4902 ok
+
+#### hotfix flow
+
+Start a hotfix flow
+
+	fh adCrash go
+
+Create a hotfix branch merge pull request
+
+	fh adCrash pr
 	
-Use lochelp to show help info
+Finish a hotfix flow
+
+	fh adCrash ok
 	
-	lochelp
+### gitz
+
+#### How to switch sub
+Create a sub personal branch:
+
+	zb
+
+<img src="gitz/res/zb.gif" width="80%" height="80%" />
+<img src="gitz/res/zb2.gif" width="80%" height="80%" />
+
+#### How to switch super
+Switch back to super branch:
+
+	zp
+
+<img src="gitz/res/zp.gif" width="80%" height="80%" />
+
+#### How to delete
+Delete both local and remote branch:
 	
-#package
+	zd feature-newTest
+
+<img src="gitz/res/zd.gif" width="80%" height="80%" />
+
+#### How to pull
+Pull update from remote
+
+	zl
+
+#### How to push
+Push update to remote
+
+	zh
+
+<img src="gitz/res/zh.gif" width="80%" height="80%" />
+
+#### How to create pull request
+Create a pull request to stash server
+
+	zr
+
+<img src="gitz/res/zr.gif" width="80%" height="80%" />
+
+### package
 
 Change xcode project configuration by gien config file
 
@@ -129,7 +245,7 @@ Custom|APP_CUSTOM|String type, etc. "custom filed"
 	set CFBundleVersionAutoIncrease=1 in Info.plist
 
 	
-#mptools
+### mptools
 
 List all the provisionprofile file
 
@@ -141,25 +257,47 @@ Remove all the provisionprofile file
 	
 Install provisionprofile file
 
-	mpinstall test.provisionprofile
+	mpinstall xxx.provisionprofile
 	
 Install provisionprofile folder
 
-	mpinstall ./provisionprofileFolder
+	mpinstall ./Download/Profiles/
 
-#utility
+# localizable
 
-Quik start project by xcode
+Use locinit to init configrure in  localizable folder
+	
+	locinit
+
+Use loc2s to convert xls to strings file
+	
+	loc2s
+
+Use loc2x to convert strings file to xls
+	
+	loc2x
+	
+Use lochelp to show help info
+	
+	lochelp
+	
+# utility
+
+Quik start project by Xcode
 
 	xx
 	
-Quik start project by appcode
+Quik start project by AppCode
 
 	aa
 	
-#shell
+Quik start project by Android Studio
+
+	ss
+	
+### shell
 
 change shell to zsh
 
-	sh setup.sh
+	sh setup.sh shell
    

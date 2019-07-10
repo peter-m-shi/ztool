@@ -1,7 +1,7 @@
-function dependency_gem(){
-	if [[ ! -n $2 ]]; then
+dependency_gem(){
+	if [ -z $2 ]; then
 		ret=$(gem list | grep $1)
-		if [[ ! -n $ret ]]; then
+		if [ -z "$ret" ]; then
 			echo "installing $1 by gem...."
 			sudo gem uninstall $1
 	   		sudo gem install -n /usr/local/bin $1 -V
@@ -10,7 +10,7 @@ function dependency_gem(){
 		fi
 	else
 		ret=$(gem list | grep $1 | grep $2)
-		if [[ ! -n $ret ]]; then
+		if [ -z "$ret" ]; then
 			echo "installing $1($2) by gem...."
 			sudo gem uninstall $1 --version $2
 	   		sudo gem install -n /usr/local/bin $1 --version $2 -V
@@ -20,10 +20,10 @@ function dependency_gem(){
 	fi
 }
 
-function dependency_brew(){
+dependency_brew(){
 	ret=$(brew list | grep $1)
-	if [[ ! -n $ret ]]; then
-		echo "installing imagemagick by brew...."
+	if [ -z "$ret" ]; then
+		echo "installing $1 by brew...."
 		brew install $1
 	else
 		echo "current version $ret"

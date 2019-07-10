@@ -27,6 +27,8 @@ _info_arguments=(
 
 _certificate_arguments=(
     "iPhone Developer\: Certification (F9R4V4C9QQ)"
+    "iPhone Distribution\: Migu Music Co., Ltd."
+    "iPhone Distribution\: Migu Music Co., Ltd. (328H572F92)"
 )
 
 local expl

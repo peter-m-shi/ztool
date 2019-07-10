@@ -15,7 +15,7 @@ def killXcode
 end
 
 def launchXcode
-	system 'ruby $HOME/ztool/utility/x'
+	system 'ruby $HOME/ztool/utility/xcode.rb'
 end
 
 def string2List(string)

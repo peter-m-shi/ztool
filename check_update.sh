@@ -4,22 +4,22 @@ TOOLS_FOLDER="$HOME/ztool"
 
 zmodload zsh/datetime
 
-function _current_epoch() {
-  echo $(( $EPOCHSECONDS / 60 / 60 / 24 ))
+_current_epoch() {
+  echo $(( $EPOCHSECONDS / 60 / 60 ))
 }
 
-function _update_time() {
+_update_time() {
   echo "LAST_EPOCH=$(_current_epoch)" >! $TOOLS_FOLDER/.tools-timestamp
 }
 
-function _upgrade_tools() {
+_upgrade_tools() {
   env ZSH=$ZSH /bin/sh $TOOLS_FOLDER/update.sh
   # update the tools file
   _update_time
 }
 
-epoch_target=$PGTOOLS_AUTO_DAYS
-if [[ -z "$epoch_target" ]]; then
+epoch_target=$PGTOOLS_AUTO_HOURS
+if [ -z "$epoch_target" ]; then
   # Default to old behavior
   epoch_target=1
 fi
@@ -31,7 +31,7 @@ if [ -f $TOOLS_FOLDER/.tools-timestamp ]
 then
   . $TOOLS_FOLDER/.tools-timestamp
 
-  if [[ -z "$LAST_EPOCH" ]]; then
+  if [ -z "$LAST_EPOCH" ]; then
     _update_time && return 0;
   fi
 
@@ -57,7 +57,7 @@ if [ -f $TOOLS_FOLDER/.tools-changes ]
 then
     log=$(cat $TOOLS_FOLDER/.tools-changes)
 
-    if [[ -n "$log" ]]; then
+    if [ -n "$log" ]; then
       echo "[ztool] has one or more updates:"
       echo "----------------------------"
       sh "$TOOLS_FOLDER/utility/echoColor.sh" "-yellow" "$log"
