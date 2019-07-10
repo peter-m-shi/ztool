@@ -47,3 +47,10 @@ def addPlistDictKeyValue(nameDict,keyPath,keyValue,plist)
 	end
 end
 
+def deletePlistKeyAndValue(key,plist)
+  if key
+    preCmdString = "/usr/libexec/PlistBuddy -c 'Delete :#{key}' \"#{plist}\""
+    system preCmdString
+    puts "[A:Plist] #{plist} delete:  #{key} "
+  end
+end
