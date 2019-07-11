@@ -76,8 +76,14 @@ def setEnv(cfg)
                                                        deletePlistKeyAndValue(delKey, tempFile)
                                                     end
                                                 elsif k == "AddPro" && !v.empty? && tempFile == "./MGMobileMusic.entitlements" then
-                                                    v.each do |addKey, addValue|
-                                                        addPlist(addKey, addValue, tempFile)
+                                                     v.each do |addKey, addValue|
+                                                        vType = "string"
+                                                        vValue = 0
+                                                        if addValue.split(':').count > 1
+                                                          vValue = addValue.split(':')[0]
+                                                          vType = addValue.split(':')[1]
+                                                        end
+                                                        addPlistPro(addKey,vValue,vType,tempFile)
                                                     end
                                                 else
                                                     modifyPlist(k,v,tempFile) 
