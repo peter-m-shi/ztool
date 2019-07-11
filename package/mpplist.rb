@@ -54,3 +54,14 @@ def deletePlistKeyAndValue(key,plist)
     puts "[A:Plist] #{plist} delete:  #{key} "
   end
 end
+
+def addPlistPro(keyPath,keyValue,vType,plist)
+	if keyPath and keyValue and vType
+		cmdString = "/usr/libexec/PlistBuddy -x -c 'Add :#{keyPath} #{vType} \"#{keyValue}\"' \"#{plist}\""
+		system cmdString
+		puts "[A:Plist] #{keyPath} >> #{keyValue}"
+	else
+		puts "[A:Plist] do nothing of keyPath: #{keyPath} keyValue: #{keyValue}"
+	end
+end
+
