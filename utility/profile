@@ -1,54 +1,58 @@
 #utilitys
 
-function upt(){
+upt(){
     sh $HOME/ztool/update.sh $1
 }
 
-function x(){
+x(){
     ruby $HOME/ztool/utility/xcode.rb
 }
 
-function xx(){
+xx(){
     ruby $HOME/ztool/utility/xcode.rb
 }
 
-function a(){
+a(){
     ruby $HOME/ztool/utility/appcode.rb
 }
 
-function aa(){
+aa(){
     ruby $HOME/ztool/utility/appcode.rb
 }
 
-function s(){
+s(){
     ruby $HOME/ztool/utility/android_studio.rb
 }
 
-function ss(){
+ss(){
     ruby $HOME/ztool/utility/android_studio.rb
 }
 
-function lka(){
+lka(){
 	ruby $HOME/ztool/utility/linkMapAnalyzer.rb $1
 }
 
-function gemfix(){
+vs(){
+	open -a Visual\ Studio\ Code $1
+}
+
+gemfix(){
 	sudo gem uninstall $1
 	sudo gem install -n /usr/local/bin $1
 }
 
-function xcfix(){
+xcfix(){
 	sh $HOME/ztool/utility/xcode_plugin_fix.sh
 }
 
-function fetchipa(){
+fetchipa(){
 	echo IPA: 	iOS-$1_$2.ipa
 	echo URL:	http://dn-packages.qbox.me/iOS-$1/$2/iOS-$1_$2.ipa
 	echo
 	curl -O http://dn-packages.qbox.me/iOS-$1/$2/iOS-$1_$2.ipa
 }
 
-function gitcode(){
+gitcode(){
 	git log --pretty=tformat: --numstat $1..$2 | gawk '{ add += $1 ; subs += $2 ; loc += $1 + $2 } END { printf "added lines: %s removed lines : %s total lines: %s\n",add,subs,loc }'
 }
 

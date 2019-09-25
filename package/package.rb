@@ -70,7 +70,6 @@ def setEnv(cfg)
                                                          end
                                                        end
                                                     end
-                                              
                                                 elsif k == "DeletePro" && !v.empty? && (tempFile == "./MGMobileMusic.entitlements" || tempFile == "./exportOption.plist") then
                                                     v.each do |delKey, delVaue| 
                                                        deletePlistKeyAndValue(delKey, tempFile)

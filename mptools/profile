@@ -1,25 +1,25 @@
 #mobileprovision tools
 	
-function mpinstall(){
+mpinstall(){
     sh $HOME/ztool/mptools/mpinstall.sh $1
 }
 
-function mputil(){
+mputil(){
     sh $HOME/ztool/mptools/mputil.sh $1 $2
 }
 
-function mpclean(){
+mpclean(){
     sh $HOME/ztool/mptools/mpclean.sh
 }
 
-function mplist(){
+mplist(){
     sh $HOME/ztool/mptools/mplist.sh
 }
 
-function mpcheck(){
+mpcheck(){
 	sh $HOME/ztool/mptools/mpcheck.sh $1
 }
 
-function mpfix(){
+mpfix(){
 	sh $HOME/ztool/mptools/mpfix.sh
 }

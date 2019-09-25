@@ -2,7 +2,7 @@
 MPTOOLS_PATH="$HOME/ztool/mptools/"
 TARGET_PATH="$HOME"/'Library/MobileDevice/Provisioning Profiles/'
 
-function _install(){
+_install(){
 	#获取当前mobileprovision identifier
 	identifier=$(sh $MPTOOLS_PATH/mputil.sh "$1" Entitlements:application-identifier)
 
@@ -12,11 +12,11 @@ function _install(){
 
 	for file in "$TARGET_PATH"/*.mobileprovision
 	do
-		#if [[ $file != "$TARGET_PATH"/*.mobileprovision ]]; then
+		#if [ $file != "$TARGET_PATH"/*.mobileprovision ]; then
 			ret_certificate=$(sh $MPTOOLS_PATH/mputil.sh "$file" DeveloperCertificates | grep "iPhone Developer")
 			ret_identifier=$(sh $MPTOOLS_PATH/mputil.sh "$file" Entitlements:application-identifier)
 			
-		  	if [[ "$ret_identifier" == "$identifier" && "$ret_certificate" == "$certificate" ]]; then
+		  	if [ "$ret_identifier" == "$identifier" -a "$ret_certificate" == "$certificate" ]; then
 		  		#statements
 		  		echo [删除]:$file[$ret]
 		  		rm -f "$file"
@@ -33,10 +33,10 @@ if [ -f "$1" ]; then
   	_install "$1"
 
   	sh $MPTOOLS_PATH/mplist.sh
-elif [[ -d "$1" ]]; then
+elif [ -d "$1" ]; then
 	for file in "$1"/*.mobileprovision
 	do
-		if [[ $file != "./*.mobileprovision" ]]; then
+		if [ $file != "./*.mobileprovision" ]; then
 			_install "$file"
 			echo 
 		fi

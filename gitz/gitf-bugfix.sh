@@ -2,11 +2,11 @@
 
 sh $GITZ_DIR/gitf-init.sh
 
-if [[ $2 = "go" ]]; then
+if [ $2 = "go" ]; then
     #Append the key-value of the given branch
     count=`git branch | grep -E "develop|release" | wc -l`
 
-    if [[ $count -le 1 ]]; then
+    if [ $count -le 1 ]; then
         superBranch=develop
     else
 		options="develop|release"
@@ -19,14 +19,14 @@ if [[ $2 = "go" ]]; then
 
     sh $GITZ_DIR/gitf-nodes.sh -a bugfix-$1 $superBranch
     git flow bugfix start $1
-    if [[ -n `git remote -v` ]]; then
+    if [ -n "`git remote -v`" ]; then
         git push origin bugfix-$1
     fi
-elif [[ $2 = "pr" ]]; then
+elif [ $2 = "pr" ]; then
     targetBranch=`sh $GITZ_DIR/gitf-nodes.sh -p bugfix-$1`
     sh $GITZ_DIR/gitz-request.sh $targetBranch -f
-elif [[ $2 = "ok" ]]; then
-    if [[ -n `git remote -v` ]]; then
+elif [ $2 = "ok" ]; then
+    if [ -n "`git remote -v`" ]; then
         targetBranch=`sh $GITZ_DIR/gitf-nodes.sh -p bugfix-$1`
         git checkout $targetBranch && git pull origin $targetBranch
         git checkout bugfix-$1 && git pull origin bugfix-$1

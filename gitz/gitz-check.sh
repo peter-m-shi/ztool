@@ -1,6 +1,6 @@
 #!/bin/sh
 
-if [[ -d .git ]]; then
+if [ -d .git ]; then
 	exit 0
 fi
 

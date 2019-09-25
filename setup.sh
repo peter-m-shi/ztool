@@ -3,7 +3,7 @@
 ROOT_PROFILE="$HOME/.profile"
 PG_PROFILE="$HOME/ztool/profile"
 
-function includeString(){
+includeString(){
 	echo "$1" | grep -q "$2" && return 0 || return 1
 }
 
@@ -14,7 +14,7 @@ elif includeString "$SHELL" "/bin/bash"; then
 	RC_FILE="$HOME/.bashrc"
 fi
 
-function addStringToFile(){
+addStringToFile(){
 	ret=$(cat $2 | grep "$1")
 	if [ "$ret" = "" ] ;then
 		echo "
@@ -25,7 +25,7 @@ $1
 	fi
 }
 
-function setupTool(){
+setupTool(){
 	echo 'source '$1"/profile" $PG_PROFILE
 	addStringToFile 'source '$1"/profile" $PG_PROFILE
 	sh "$1/setup.sh"
@@ -41,12 +41,12 @@ addStringToFile "source $ROOT_PROFILE" $RC_FILE
 
 addStringToFile "env ZSH=$ZSH "'PGTOOLS_AUTO_CHECK=$PGTOOLS_AUTO_CHECK PGTOOLS_AUTO_HOURS=$PGTOOLS_AUTO_HOURS'" zsh -f $HOME/ztool/check_update.sh" $RC_FILE
 
-if [[ "$1" != "" ]]; then
-	if [[ -d "$1" ]]; then
+if [ "$1" != "" ]; then
+	if [ -d "$1" ]; then
 		sh "$HOME/ztool/utility/echoColor.sh" "-yellow" "[$1]>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
-		setupTool $1
+		setupTool $HOME/ztool/$1
 	else
-		failedString="$1 not exsit!"
+		failedString="$HOME/ztool/$1 not exsit!"
 		sh "$HOME/ztool/utility/echoColor.sh" "-red" "$failedString"
 	fi
 else
@@ -54,7 +54,7 @@ else
 	do
 	    if test -d $file
 	    then
-		    if [[ "${file##*/}" != "shell" ]] && [[ "${file##*/}" != "image" ]]; then
+		    if [ "${file##*/}" != "shell" ] && [ "${file##*/}" != "image" ] && [ "${file##*/}" != "localizable" ]; then
 	    		sh "$HOME/ztool/utility/echoColor.sh" "-yellow" "[${file##*/}]>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
 				setupTool $file
 				echo 

@@ -1,7 +1,27 @@
 
 <font color="#450cc4" size = "3px">	
 
-##How to install
+* [How to install](#how-to-install)
+* [How to use tools](#how-to-use-tools)
+	* [gitf](#gitf)
+		* [feature flow](#feature-flow)
+		* [release flow](#release-flow)
+		* [bugfix flow](#bugfix-flow)
+		* [hotfix flow](#hotfix-flow)
+	* [gitz](#gitz)
+		* [How to switch sub](#how-to-switch-sub)
+		* [How to switch super](#how-to-switch-super)
+		* [How to delete](#how-to-delete)
+		* [How to pull](#how-to-pull)
+		* [How to push](#how-to-push)
+		* [How to create pull request](#how-to-create-pull-request)
+	* [package](#package)
+	* [mptools](#mptools)
+	* [localizable](#localizable)
+	* [utility](#utility)
+	* [shell](#shell)
+
+## How to install
 
 use the follow command to install all the tools.
 
@@ -9,224 +29,135 @@ use the follow command to install all the tools.
 
 use the foloow command to install a special tool.
 
-	sh setup.sh mptools
+	sh setup.sh ipa
 	
-##How to use tools
+## How to use tools
 
-#gitz 
+### gitf 
 
-[TOC]
+#### before use gitf
 
-##安装##
+Make sure user name is configrured, it will be used for checking a branch is personal or not.
 
-打开终端，执行如下命令：
+	git config --global user.name sp
 
->$ git clone https://github.com/peter-m-shi/ztool.git $HOME/ztool;sh $HOME/ztool/setup.sh
+Make sure stash config is inited, before 'pr' can be used.
 
+	stash configure
 
+#### feature flow
 
-##gitf工具##
+Start a feature flow
 
-gitf工具包含了如下几个命令：
+	ff featureA go
+ 
+<img src="gitz/res/ff-go.gif" width="80%" height="80%" />
 
+Create a feature branch merge pull request
 
+	ff featureA pr
 
-**gif feature**（亦可简写为**ff**）
+<img src="gitz/res/ff-pr.gif" width="80%" height="80%" />
 
+Finish a feature flow
 
+	ff featureA ok
 
-功能：
+<img src="gitz/res/ff-ok.gif" width="80%" height="80%" />
 
 
+#### release flow
 
-（1）从develop拉取feature分支，开始工作；
+Start a release flow
 
-（2）完成开发，合并回原分支.
+	fr 5.0.0 go
 
+<img src="gitz/res/fr-go.gif" width="80%" height="80%" />
 
+Create a release branch merge pull request
 
-示例：
+	fr 5.0.0 pr
 
+<img src="gitz/res/fr-pr.gif" width="80%" height="80%" />
 
+Finish a release flow
 
->$ ==ff== function1 ==go==
+	fr 5.0.0 ok
 
+<img src="gitz/res/fr-ok.gif" width="80%" height="80%" />
 
+#### bugfix flow
 
->$ ==ff== function1 ==ok==
+Start a bugfix flow
 
+	fb JIRA-4902 go
 
+Create a bugfix branch merge pull request
 
-Notes:
-
-（1）根据提示选择从develop，develop-A，develop-B拉取分支。
-
-（2）上述命令中的"function1"为feature分支名。
-
-
-
-
-
-**gif release**（亦可简写为**fr**）
-
-
-
-功能：
-
-
-
-（1）从develop拉取release分支，开始集成测试；
-
-（2）完成测试，合并到master分支（并打tag）和develop分支。
-
-
-
-示例：
-
-
-
->$ ==fr== 7.0.0 ==go==
-
->$ ==fr== 7.0.0 ==ok==
-
-
-
-Notes：上述命令中的"7.0.0"为待发布版本号。
-
-
-
-**gif bugfix**（亦可简写为**fb**）
-
-
-
-功能：
-
-
-
-（1）从release拉取bugfix分支，修复bug；
-
-（2）完成修复，合并回release分支。
-
-
-
-示例：
-
-
-
-> $ ==fb== MGV6-1234 ==go==
-
-
-
-> $ ==fb== MGV6-1234 ==ok==
-
-
-
-Notes：上述命令中的“MGV6-1234”为BugID.
-
-
-
-**gif hotfix**（亦可简写为**fh**）
-
-
-
-功能：
-
-
-
-（1）从master拉取hotfix分支，开始修复线上bug；
-
-（2）完成修复，合并回master分支。
-
-
-
-示例：
-
-
-
->$ ==fh== crash ==go==
-
-
-
->$ ==fh== crash ==ok==
-
-
-
-
-
-##gitz工具##
-
-gitz工具集的使用场景：多人协作于同一分支（协作开发同一feature、sub-feature，协作修改同一bugfix，hotfix）
-
-
-
-**gitz pull**
-
-
-
-从当前personal分支的上级分支拉取更新
-
-
-
-**gitz push**
-
-
-
-向当前personal分支的上级分支合并修改
-
-
-
-**gitz request**
-
-
-
-直接在命令行页面提起pull request，不需要打开Bitbucket创建pull request，提请成功会出现弹窗提示。
-
-
-
-**git sub**
-
-
-
-从上级分支切换到personal分支
-
-
-
-**git super**
-
-
-
-从当前的personal分支切换到上级分支
-
-
-
-**git remove**
-
-
-
-从本地和远程移除名为XXX的分支
-
-
-
-
-#localizable
-
-Use locinit to init configrure in  localizable folder
+	fb JIRA-4902 pr
 	
-	locinit
+Finish a bugfix flow
 
-Use loc2s to convert xls to strings file
-	
-	loc2s
+	fb JIRA-4902 ok
 
-Use loc2x to convert strings file to xls
+#### hotfix flow
+
+Start a hotfix flow
+
+	fh adCrash go
+
+Create a hotfix branch merge pull request
+
+	fh adCrash pr
 	
-	loc2x
+Finish a hotfix flow
+
+	fh adCrash ok
 	
-Use lochelp to show help info
+### gitz
+
+#### How to switch sub
+Create a sub personal branch:
+
+	zb
+
+<img src="gitz/res/zb.gif" width="80%" height="80%" />
+<img src="gitz/res/zb2.gif" width="80%" height="80%" />
+
+#### How to switch super
+Switch back to super branch:
+
+	zp
+
+<img src="gitz/res/zp.gif" width="80%" height="80%" />
+
+#### How to delete
+Delete both local and remote branch:
 	
-	lochelp
-	
-#package
+	zd feature-newTest
+
+<img src="gitz/res/zd.gif" width="80%" height="80%" />
+
+#### How to pull
+Pull update from remote
+
+	zl
+
+#### How to push
+Push update to remote
+
+	zh
+
+<img src="gitz/res/zh.gif" width="80%" height="80%" />
+
+#### How to create pull request
+Create a pull request to stash server
+
+	zr
+
+<img src="gitz/res/zr.gif" width="80%" height="80%" />
+
+### package
 
 Change xcode project configuration by gien config file
 
@@ -314,7 +245,7 @@ Custom|APP_CUSTOM|String type, etc. "custom filed"
 	set CFBundleVersionAutoIncrease=1 in Info.plist
 
 	
-#mptools
+### mptools
 
 List all the provisionprofile file
 
@@ -326,25 +257,47 @@ Remove all the provisionprofile file
 	
 Install provisionprofile file
 
-	mpinstall test.provisionprofile
+	mpinstall xxx.provisionprofile
 	
 Install provisionprofile folder
 
-	mpinstall ./provisionprofileFolder
+	mpinstall ./Download/Profiles/
 
-#utility
+# localizable
 
-Quik start project by xcode
+Use locinit to init configrure in  localizable folder
+	
+	locinit
+
+Use loc2s to convert xls to strings file
+	
+	loc2s
+
+Use loc2x to convert strings file to xls
+	
+	loc2x
+	
+Use lochelp to show help info
+	
+	lochelp
+	
+# utility
+
+Quik start project by Xcode
 
 	xx
 	
-Quik start project by appcode
+Quik start project by AppCode
 
 	aa
 	
-#shell
+Quik start project by Android Studio
+
+	ss
+	
+### shell
 
 change shell to zsh
 
-	sh setup.sh
+	sh setup.sh shell
    

@@ -1,7 +1,7 @@
 #!/bin/sh
 
 sh $GITZ_DIR/gitz-check.sh
-if [[ $? -ne 0 ]]; then
+if [ $? -ne 0 ]; then
     exit 1
 fi
 
@@ -10,15 +10,15 @@ user=`git config --get user.name`
 branch=$1
 prefix=`echo $branch | cut -d - -f1`
 
-if [[ "$2" == "-f" ]]; then
+if [ "$2" == "-f" ]; then
     user=$prefix
 fi
 
-if [[ -z "$1" ]]
+if [ -z "$1" ]
 then
     echo "target branch parameter missed."
 else
-    if [[ $user = $prefix ]]
+    if [ $user = $prefix ]
     then
         if [ -f ".git/refs/heads/${branch}" ]; then
             git branch -D ${branch}

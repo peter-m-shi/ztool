@@ -1,7 +1,7 @@
 #!/bin/sh
 
 sh $GITZ_DIR/gitz-check.sh
-if [[ $? -ne 0 ]]; then
+if [ $? -ne 0 ]; then
     exit 1
 fi
 
@@ -13,7 +13,7 @@ userName=`git config --get user.name`
 case $currentBranch in
     release-* | hotfix-* | feature-* | bugfix-* | develop-* | $userName-*)
         #release find sub,create a personal branch by user.name if not found
-        if [[ -z $superBranch ]]; then
+        if [ -z $superBranch ]; then
             echo No super branch can be found.
             exit
         fi
