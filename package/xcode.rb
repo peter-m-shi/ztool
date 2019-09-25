@@ -11,6 +11,15 @@ def outputFolder
         @outputFolder
 end
 
+def ipaFilePath
+        folder = outputFolder()
+        Dir.entries(folder).each do |path|         
+                if path.include? ".ipa"
+                        return folder + path
+                end
+        end 
+end
+
 def isGemInstalled(soft)
         installed = false
         ret = `gem list | grep #{soft}`
@@ -185,4 +194,58 @@ def make(debug=false,clearTemp=true,autoOpenFinder=false)
                 puts "error when make with name #{name}"
         end
 
+end
+
+def upload(username,password,backupDir,ipaPath)
+        if username.class == NilClass
+                puts "username is null"
+                return
+        end
+        if password.class == NilClass
+                puts "password is null"
+                return
+        end
+
+        if ipaPath.class == NilClass
+                puts "find ipa"
+                ipaPath = ipaFilePath()
+        end
+        
+        if ipaPath.class == NilClass
+                puts "ipaPath is null"
+                ipaPath = ipaFilePath()
+        end
+
+        if backupDir.class != NilClass
+                if !Dir.exist?(backupDir)
+                        Dir.mkdir(backupDir)
+                end
+                outputFolder = outputFolder()
+                filename = File.basename(ipaPath, ".*")
+                targetDir = backupDir + "/" + filename + "_appstore"
+                puts "backup output files:" + targetDir
+
+                # 将打包生成的文件进行备份
+                if !Dir.exist?(targetDir)
+                        system "cp -r \"#{outputFolder}\" \"#{targetDir}\""
+                end
+        end
+
+        puts "-------------------upload info------------------"
+        puts "username:" + username
+        puts "password:" + password
+        puts "ipaPath:" + ipaPath
+        puts "backupDir:" + backupDir
+        puts "-------------------start upload------------------"
+
+        system "/Applications/Xcode.app/Contents/Developer/usr/bin/altool --upload-app -f \"#{ipaPath}\" -u \"#{username}\" -p \"#{password}\""
+
+        error = $?
+        if error.exitstatus != 0
+            puts "-------------------upload failed------------------"
+            exit error.exitstatus
+        end
+
+        puts "-------------------upload successed------------------"
+        
 end

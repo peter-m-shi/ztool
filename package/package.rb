@@ -70,12 +70,11 @@ def setEnv(cfg)
                                                          end
                                                        end
                                                     end
-                                              
-                                                elsif k == "DeletePro" && !v.empty? && tempFile == "./MGMobileMusic.entitlements" then
+                                                elsif k == "DeletePro" && !v.empty? && (tempFile == "./MGMobileMusic.entitlements" || tempFile == "./exportOption.plist") then
                                                     v.each do |delKey, delVaue| 
                                                        deletePlistKeyAndValue(delKey, tempFile)
                                                     end
-                                                elsif k == "AddPro" && !v.empty? && tempFile == "./MGMobileMusic.entitlements" then
+                                                elsif k == "AddPro" && !v.empty? && (tempFile == "./MGMobileMusic.entitlements" || tempFile == "./exportOption.plist") then
                                                      v.each do |addKey, addValue|
                                                         vType = "string"
                                                         vValue = 0
@@ -165,6 +164,8 @@ def showHelp
     puts "-build:   [-b]Build xcode workspace/porject"
     puts "-clean:   [-c]Clean xcode workspace/porject"
     puts "-make:    [-m]Build xcode workspace/porject And Make ipa file to output folder"
+    puts "-appstore:[-a]Build xcode workspace/porject And Make ipa file to output folder And Upload to AppStore"
+    puts "-upload:  [-u]Upload ipa file to AppStore"
     puts "-batch:    [-bat]Batch build xcode workspace/porject And Make ipa file to output folder"
     puts "-output:    [-o]Config output folder path"
     puts ""
@@ -221,6 +222,20 @@ elsif cmd.downcase == '-make' or cmd.downcase == '-m'
         make(modeArg(ARGV[1]),true,true)
         increaseBuildVersion()
         exit error.exitstatus
+
+elsif cmd.downcase == '-upload' or cmd.downcase == '-u'
+        #上传
+        upload(ARGV[1], ARGV[2], ARGV[3], ARGV[4])
+
+elsif cmd.downcase == '-appstore' or cmd.downcase == '-a'
+        error = build(false,"",true)
+        if error.exitstatus != 0
+            exit error.exitstatus
+        end
+
+        make(false,true,true)
+        ipaPath = ipaFilePath()
+        upload(ARGV[1], ARGV[2], ARGV[3], ipaPath)
 
 elsif cmd.downcase == '-batch' or cmd.downcase == '-bat'
         if !Dir.exist?(defaultDir)

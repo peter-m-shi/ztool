@@ -1,7 +1,7 @@
 #package tools
 
 pkg(){
-    ruby $HOME/ztool/package/package.rb $1 $2 $3
+    ruby $HOME/ztool/package/package.rb $1 $2 $3 $4
 }
 
 
