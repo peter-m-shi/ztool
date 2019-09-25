@@ -11,6 +11,15 @@ def outputFolder
         @outputFolder
 end
 
+def ipaFilePath
+        folder = outputFolder()
+        Dir.entries(folder).each do |path|         
+                if path.include? ".ipa"
+                        return folder + path
+                end
+        end 
+end
+
 def isGemInstalled(soft)
         installed = false
         ret = `gem list | grep #{soft}`
@@ -139,8 +148,6 @@ def build(debug=false, arguments="",buildAndMake=false)
 
         argument += " #{arguments} "
 
-        system "echo #{argument}"
-
         xcprettyCmd = ""
         if isGemInstalled('xcpretty')
                 xcprettyCmd = " | xcpretty --no-color"
@@ -148,11 +155,9 @@ def build(debug=false, arguments="",buildAndMake=false)
         #编译当前工程
 
         if buildAndMake
-                puts "set -o pipefail;time xcodebuild #{argument} archive GCC_PREPROCESSOR_DEFINITIONS='$(inherited) BUILD_IN_CI=1' -derivedDataPath \"#{buildFolder}\" -archivePath \"#{buildFolder}/Archive.xcarchive\" #{xcprettyCmd}"
-                system "set -o pipefail;time xcodebuild #{argument} archive GCC_PREPROCESSOR_DEFINITIONS='$(inherited) BUILD_IN_CI=1' -derivedDataPath \"#{buildFolder}\" -archivePath \"#{buildFolder}/Archive.xcarchive\" #{xcprettyCmd}"
+	        system "set -o pipefail;time xcodebuild #{argument} archive GCC_PREPROCESSOR_DEFINITIONS='$(inherited) BUILD_IN_CI=1' -derivedDataPath \"#{buildFolder}\" -archivePath \"#{buildFolder}/Archive.xcarchive\" #{xcprettyCmd}"
         else
-                puts "set -o pipefail;time xcodebuild #{argument} build GCC_PREPROCESSOR_DEFINITIONS='$(inherited) BUILD_IN_CI=1' -derivedDataPath \"#{buildFolder}\"#{xcprettyCmd}"
-                system "set -o pipefail;time xcodebuild #{argument} build GCC_PREPROCESSOR_DEFINITIONS='$(inherited) BUILD_IN_CI=1' -derivedDataPath \"#{buildFolder}\"#{xcprettyCmd}"
+	        system "set -o pipefail;time xcodebuild #{argument} build GCC_PREPROCESSOR_DEFINITIONS='$(inherited) BUILD_IN_CI=1' -derivedDataPath \"#{buildFolder}\"#{xcprettyCmd}"
         end
 
         return $?
@@ -170,9 +175,7 @@ def make(debug=false,clearTemp=true,autoOpenFinder=false)
                 output = outputFolder
 
                 system "rm -rf #{output}/*"
-
-                system "echo \"<?xml version=\"1.0\" encoding=\"UTF-8\"?><!DOCTYPE plist PUBLIC \"-//Apple//DTD PLIST 1.0//EN\" \"http://www.apple.com/DTDs/PropertyList-1.0.dtd\"><plist version=\"1.0\"><dict><key>compileBitcode</key><false/></dict></plist>\" > #{buildFolder}/temp.plist"
-                system "xcodebuild -exportArchive -archivePath \"#{xcarchive}\" -exportPath \"#{output}\" -exportOptionsPlist \"#{buildFolder}/temp.plist\""
+                system "xcodebuild -exportArchive -archivePath \"#{xcarchive}\" -exportPath \"#{output}\" -exportOptionsPlist \"exportOption.plist\""
 
                 if File::exist?("#{dSYM}")
                         system "cp -r \"#{dSYM}\" \"#{output}#{name}.dSYM\""
@@ -191,4 +194,58 @@ def make(debug=false,clearTemp=true,autoOpenFinder=false)
                 puts "error when make with name #{name}"
         end
 
+end
+
+def upload(username,password,backupDir,ipaPath)
+        if username.class == NilClass
+                puts "username is null"
+                return
+        end
+        if password.class == NilClass
+                puts "password is null"
+                return
+        end
+
+        if ipaPath.class == NilClass
+                puts "find ipa"
+                ipaPath = ipaFilePath()
+        end
+        
+        if ipaPath.class == NilClass
+                puts "ipaPath is null"
+                ipaPath = ipaFilePath()
+        end
+
+        if backupDir.class != NilClass
+                if !Dir.exist?(backupDir)
+                        Dir.mkdir(backupDir)
+                end
+                outputFolder = outputFolder()
+                filename = File.basename(ipaPath, ".*")
+                targetDir = backupDir + "/" + filename + "_appstore"
+                puts "backup output files:" + targetDir
+
+                # 将打包生成的文件进行备份
+                if !Dir.exist?(targetDir)
+                        system "cp -r \"#{outputFolder}\" \"#{targetDir}\""
+                end
+        end
+
+        puts "-------------------upload info------------------"
+        puts "username:" + username
+        puts "password:" + password
+        puts "ipaPath:" + ipaPath
+        puts "backupDir:" + backupDir
+        puts "-------------------start upload------------------"
+
+        system "/Applications/Xcode.app/Contents/Developer/usr/bin/altool --upload-app -f \"#{ipaPath}\" -u \"#{username}\" -p \"#{password}\""
+
+        error = $?
+        if error.exitstatus != 0
+            puts "-------------------upload failed------------------"
+            exit error.exitstatus
+        end
+
+        puts "-------------------upload successed------------------"
+        
 end
