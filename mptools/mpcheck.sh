@@ -8,7 +8,7 @@ _printProvision()
 	#iphone id  长度为40位
 	iphoneIdentifierLength=${#iphoneID}
 
-	if [ $iphoneIdentifierLength -eq 40 ]; then
+	if [ $iphoneIdentifierLength -gt 40 ]; then
 		echo "------------- provision contain device -------------"
 		#遍历证书
 		for file in "$TARGET_PATH"/*.mobileprovision
