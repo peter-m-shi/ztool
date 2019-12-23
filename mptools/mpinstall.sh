@@ -6,14 +6,21 @@ _install(){
 	#获取当前mobileprovision identifier
 	identifier=$(sh $MPTOOLS_PATH/mputil.sh "$1" Entitlements:application-identifier)
 
-	certificate=$(sh $MPTOOLS_PATH/mputil.sh "$1" DeveloperCertificates | grep "iPhone Developer")
+	Search_Str="iPhone Developer"
+
+	certificate=$(sh $MPTOOLS_PATH/mputil.sh "$1" DeveloperCertificates | grep -a "${Search_Str}")
+
+	if [[ -z $certificate ]]; then
+		Search_Str="Apple Development"
+		certificate=$(sh $MPTOOLS_PATH/mputil.sh "$1" DeveloperCertificates | grep -a "${Search_Str}")
+	fi
 
 	#查找是否已有相同identifier的mobileprovision
 
 	for file in "$TARGET_PATH"/*.mobileprovision
 	do
 		#if [ $file != "$TARGET_PATH"/*.mobileprovision ]; then
-			ret_certificate=$(sh $MPTOOLS_PATH/mputil.sh "$file" DeveloperCertificates | grep "iPhone Developer")
+			ret_certificate=$(sh $MPTOOLS_PATH/mputil.sh "$file" DeveloperCertificates | grep -a "${Search_Str}")
 			ret_identifier=$(sh $MPTOOLS_PATH/mputil.sh "$file" Entitlements:application-identifier)
 			
 		  	if [ "$ret_identifier" == "$identifier" -a "$ret_certificate" == "$certificate" ]; then
