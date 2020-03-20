@@ -2,7 +2,7 @@
 MPTOOLS_PATH="$HOME/ztool/mptools/"
 TARGET_PATH="$HOME"/'Library/MobileDevice/Provisioning Profiles/'
 
-_install(){
+_delete(){
 	#获取当前mobileprovision identifier
 	identifier=$(sh $MPTOOLS_PATH/mputil.sh "$1" Entitlements:application-identifier)
 
@@ -17,7 +17,7 @@ _install(){
 
 	#查找是否已有相同identifier的mobileprovision
 
-	for file in "$TARGET_PATH"/*.mobileprovision
+	for file in "$TARGET_PATH"*.mobileprovision
 	do
 		#if [ $file != "$TARGET_PATH"/*.mobileprovision ]; then
 			ret_certificate=$(sh $MPTOOLS_PATH/mputil.sh "$file" DeveloperCertificates | grep -a "${Search_Str}")
@@ -30,17 +30,27 @@ _install(){
 		  	fi
 		#fi
 	done
+}
 
+_install() {
 	cp -f "$1" "$TARGET_PATH"
 	echo [安装]:$1
 	echo '      '$identifier
 }
 
 if [ -f "$1" ]; then
+	_delete "$1"
   	_install "$1"
 
   	sh $MPTOOLS_PATH/mplist.sh
 elif [ -d "$1" ]; then
+	for file in "$1"/*.mobileprovision
+	do
+		if [ $file != "./*.mobileprovision" ]; then
+			_delete "$file"
+			echo 
+		fi
+	done
 	for file in "$1"/*.mobileprovision
 	do
 		if [ $file != "./*.mobileprovision" ]; then

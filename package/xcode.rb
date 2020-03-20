@@ -196,13 +196,13 @@ def make(debug=false,clearTemp=true,autoOpenFinder=false)
 
 end
 
-def upload(username,password,backupDir,ipaPath)
-        if username.class == NilClass
-                puts "username is null"
+def upload(apiKey,apiIssuer,backupDir,ipaPath)
+        if apiKey.class == NilClass
+                puts "apiKey is null"
                 return
         end
-        if password.class == NilClass
-                puts "password is null"
+        if apiIssuer.class == NilClass
+                puts "apiIssuer is null"
                 return
         end
 
@@ -232,13 +232,13 @@ def upload(username,password,backupDir,ipaPath)
         end
 
         puts "-------------------upload info------------------"
-        puts "username:" + username
-        puts "password:" + password
+        puts "apiKey:" + apiKey
+        puts "apiIssuer:" + apiIssuer
         puts "ipaPath:" + ipaPath
         puts "backupDir:" + backupDir
         puts "-------------------start upload------------------"
 
-        system "/Applications/Xcode.app/Contents/Developer/usr/bin/altool --upload-app -f \"#{ipaPath}\" -u \"#{username}\" -p \"#{password}\""
+        system "xcrun altool --upload-app -f \"#{ipaPath}\" -t ios --apiKey \"#{apiKey}\" --apiIssuer \"#{apiIssuer}\" --verbose"
 
         error = $?
         if error.exitstatus != 0
