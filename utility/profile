@@ -33,7 +33,7 @@ lka(){
 }
 
 vs(){
-	open -a Visual\ Studio\ Code $1
+    ruby $HOME/ztool/utility/visual_studio.rb
 }
 
 gemfix(){
