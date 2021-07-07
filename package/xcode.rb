@@ -166,7 +166,7 @@ def build(debug=false, arguments="",buildAndMake=false)
             end
         else
             puts "编译参数为空"
-            argument = "-scheme #{scheme} #{keyword} #{project} "
+            argument += "-scheme #{scheme} #{keyword} #{project} "
         end
         puts "传入的编译参数：#{arguments}"
         argument += "#{arguments} "
