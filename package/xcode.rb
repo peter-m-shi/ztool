@@ -155,6 +155,7 @@ def build(debug=false, arguments="",buildAndMake=false)
         end
         
         if arguments.class != NilClass
+            arguments=arguments.gsub("+%", " ")
             if !arguments.include?("-scheme")
                 #使用默认的scheme
                 argument += "-scheme #{scheme} "
@@ -167,8 +168,9 @@ def build(debug=false, arguments="",buildAndMake=false)
             puts "编译参数为空"
             argument = "-scheme #{scheme} #{keyword} #{project} "
         end
-        
+        puts "传入的编译参数：#{arguments}"
         argument += "#{arguments} "
+        puts "编译参数：#{argument}"
 
         xcprettyCmd = ""
         if isGemInstalled('xcpretty')
