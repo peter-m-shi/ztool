@@ -137,16 +137,40 @@ end
 
 def build(debug=false, arguments="",buildAndMake=false)
 
-        argument = baseArgument
-
+        #argument = baseArgument
         if debug
-                argument += " -configuration Debug"
+            argument = "-configuration Debug "
         else
-                argument += " -configuration Release"
+            argument = "-configuration Release "
         end
 
-
-        argument += " #{arguments} "
+        project = Dir['*.xcworkspace'].first
+        if project
+            keyword = "-workspace"
+            scheme = File.basename(project,".xcworkspace")
+        else
+            keyword = "-project"
+            project = Dir['*.xcodeproj'].first
+            scheme = File.basename(project,".xcodeproj")
+        end
+        
+        if arguments.class != NilClass
+            arguments=arguments.gsub("+%", " ")
+            if !arguments.include?("-scheme")
+                #使用默认的scheme
+                argument += "-scheme #{scheme} "
+            end
+            if !arguments.include?(keyword)
+                #使用默认的-workspace或者-project
+                argument += "#{keyword} #{project} "
+            end
+        else
+            puts "编译参数为空"
+            argument += "-scheme #{scheme} #{keyword} #{project} "
+        end
+        puts "传入的编译参数：#{arguments}"
+        argument += "#{arguments} "
+        puts "编译参数：#{argument}"
 
         xcprettyCmd = ""
         if isGemInstalled('xcpretty')
