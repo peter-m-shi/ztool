@@ -193,7 +193,7 @@ def make(debug=false,clearTemp=true,autoOpenFinder=false)
 
         if !name.empty?
                 app = Dir.glob(File.join(buildFolder,"**", "*.app")).first
-                dSYM = Dir.glob(File.join(buildFolder,"**", "*.dSYM")).first
+                dSYM = Dir.glob(File.join(buildFolder,"**", "*app.dSYM")).first
                 xcarchive = Dir.glob(File.join(buildFolder,"**", "*.xcarchive")).first
                 name = File.basename(name)
                 output = outputFolder
