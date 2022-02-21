@@ -262,7 +262,7 @@ def upload(apiKey,apiIssuer,backupDir,ipaPath)
         puts "backupDir:" + backupDir
         puts "-------------------start upload------------------"
 
-        system "xcrun altool --upload-app -f \"#{ipaPath}\" -t ios --apiKey \"#{apiKey}\" --apiIssuer \"#{apiIssuer}\" --verbose"
+        system "xcrun iTMSTransporter -m upload -assetFile \"#{ipaPath}\" --apiKey \"#{apiKey}\" --apiIssuer \"#{apiIssuer}\" -v informational"
 
         error = $?
         if error.exitstatus != 0
